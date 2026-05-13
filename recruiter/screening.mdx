@@ -1,0 +1,61 @@
+---
+title: "Screening"
+description: "How the AI screening agent evaluates candidates, what its decisions mean, and how to override them."
+---
+
+Screening is the first automated step after a candidate enters from Salesforce. The screening agent evaluates the candidate against the job and returns a decision with a written rationale.
+
+## Decision types
+
+| Decision | What it means | What happens next |
+|---|---|---|
+| **Advance** | Candidate meets the criteria for an interview | Scheduling starts automatically (if auto-schedule is enabled) |
+| **Review** | Agent is uncertain — human judgment needed | Candidate appears in the Review Queue; no automatic scheduling |
+| **Reject** | Candidate does not meet criteria | Scheduling status set to rejected; writeback sent to Salesforce |
+
+<Note>
+  There is a fourth internal state: `escalate_to_human`. This is stored as `Review` in the UI and creates an escalation in the Command Center. You'll see it in the escalation queue with the agent's reason.
+</Note>
+
+## What the agent evaluates
+
+The screening agent considers:
+
+1. **Job description** — title, full description, location, requirements from Workable
+2. **Application answers** — the candidate's own responses to application questions
+3. **Candidate experience summary** — education and experience text from Salesforce
+4. **Screening directives** — your organization's custom criteria configured in [Settings → Screening](/settings/screening)
+
+The agent is instructed not to invent facts. When evidence is ambiguous or missing, it prefers `Review` over `Reject`.
+
+## Viewing a screening decision
+
+Open any application and click the **Screening** tab. You'll see:
+
+- The **decision badge** — color-coded `Advance`, `Review`, or `Reject`
+- **Rationale** — the agent's written explanation of why it made this decision, specific to the candidate and role
+- **Candidate evidence** — a structured view of the application data the agent used (answers, experience, education)
+- **Job context** — the job description the agent evaluated against
+
+## Overriding a decision
+
+Recruiters can override any screening decision.
+
+1. In the Screening tab, click the **Override** button or select from the decision dropdown
+2. Choose the correct decision
+3. Enter a reason (required — this is stored in the audit log and written back to Salesforce)
+4. Click **Save Override**
+
+Your override replaces the agent's decision as the authoritative outcome. If you override to `Advance`, you can then manually trigger scheduling from the Details tab.
+
+<Warning>
+  Overriding to `Reject` writes back to Salesforce immediately. A rejection note is created on the Salesforce Contact with your reason.
+</Warning>
+
+## Auto-screening and manual trigger
+
+Screening runs automatically after intake by default. If it didn't run (or you want to re-run it after updating screening directives), use the **Run Screening** button in the Details tab.
+
+## Screening directives
+
+You configure the criteria the agent uses in [Settings → Screening](/settings/screening). Directives are organization-wide instructions that supplement the job description — for example, minimum experience requirements or disqualifying factors specific to your organization.

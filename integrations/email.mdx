@@ -1,0 +1,81 @@
+---
+title: "Email Integration"
+description: "Configure Resend for outbound email to candidates and inbound reply handling."
+---
+
+Maigrate uses [Resend](https://resend.com) to send and receive email. Email is used as the outreach channel when a candidate doesn't have a valid mobile number, and as the fallback channel in multi-attempt follow-up sequences.
+
+<Note>
+  This setup requires access to your DNS provider and Resend account. It is typically completed by engineering or IT.
+</Note>
+
+## What the integration does
+
+- **Outbound**: Sends scheduling outreach, follow-ups, confirmations, and reminders via email
+- **Inbound**: Receives candidate replies via webhook and routes them to the communication agent
+- **From address**: Each organization configures a from address on their verified domain
+
+## Setup steps
+
+### 1. Create a Resend account and verify your domain
+
+1. Sign up at [resend.com](https://resend.com)
+2. Go to **Domains → Add Domain** and enter the domain you'll send from (e.g., `notifications.yourcompany.com`)
+3. Add the DNS records Resend provides:
+   - SPF (TXT record)
+   - DKIM (3 CNAME records)
+   - DMARC (TXT record — recommended)
+   - MX record (required for inbound reply handling)
+4. Wait for DNS verification (usually a few minutes)
+
+<Tip>
+  Use a subdomain for email (e.g., `notifications.yourcompany.com`) to isolate any deliverability issues from your main domain.
+</Tip>
+
+### 2. Create an API key
+
+1. In Resend, go to **API Keys → Create API Key**
+2. Permission: **Full access** (required for both sending and reading inbound emails)
+3. Copy the key (`re_...`)
+
+### 3. Set SST secrets
+
+```bash
+npx sst secret set ResendApiKey re_YOUR_API_KEY --stage prod
+npx sst secret set ResendWebhookSecret whsec_YOUR_WEBHOOK_SECRET --stage prod
+```
+
+The webhook secret comes from step 4.
+
+### 4. Deploy and configure the inbound webhook
+
+1. Deploy the stack: `npx sst deploy --stage prod`
+2. In Resend, go to **Webhooks → Add Webhook**
+3. Endpoint URL: `https://<your-api-gateway-url>/webhooks/resend/inbound`
+4. Event: **email.received**
+5. Copy the **Signing Secret** (`whsec_...`) and set it as `ResendWebhookSecret` (update the secret if already set)
+
+### 5. Configure the from address in Maigrate
+
+In the Maigrate app, go to **Settings → Email** and enter the from address (e.g., `scheduling@notifications.yourcompany.com`). This must be on the verified Resend domain.
+
+Click **Save**.
+
+### 6. Verify
+
+**Outbound**: Trigger scheduling for a candidate with an email address. Check **Resend → Emails** for delivery status.
+
+**Inbound**: Reply to a sent email. Check **Resend → Webhooks → Logs** — the webhook should show a successful delivery, and the reply should appear in the candidate's communication thread.
+
+## Checklist
+
+<Steps>
+  <Step title="Domain verified in Resend">DNS records added and Resend shows the domain as verified.</Step>
+  <Step title="MX record added">Required for inbound replies. Check with `dig MX notifications.yourcompany.com`.</Step>
+  <Step title="API key created">Full access. Saved as `ResendApiKey` SST secret.</Step>
+  <Step title="Stack deployed">Run `npx sst deploy --stage prod` after setting secrets.</Step>
+  <Step title="Webhook registered">Endpoint URL correct, event is `email.received`, signing secret saved.</Step>
+  <Step title="From address configured">Set in Settings → Email and saved.</Step>
+  <Step title="Test outbound">Scheduling email delivered successfully.</Step>
+  <Step title="Test inbound">Reply received and visible in candidate's thread.</Step>
+</Steps>

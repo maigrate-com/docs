@@ -1,0 +1,66 @@
+---
+title: "Communication Settings"
+description: "Customize the message templates the communication agent uses for outreach, follow-ups, confirmations, and reminders."
+---
+
+The Communication settings page lets you control the content of automated messages sent to candidates. The communication agent uses these templates as its starting point and may adapt the tone and specific details to the conversation context.
+
+Navigate to **Settings → Communication** to access this page.
+
+## Template families
+
+There are four built-in template families, each covering a specific moment in the candidate journey.
+
+### Initial Outreach
+
+The first message sent to a candidate when scheduling begins. This message introduces the interview opportunity and proposes available time slots (or a booking link if configured).
+
+**Tips for effective initial outreach:**
+- Keep it brief — candidates respond better to concise messages
+- Include your organization name so the message doesn't look like spam
+- Make the call-to-action clear ("Please reply with your preferred time")
+
+### Follow-Up Nudges
+
+Messages sent when a candidate hasn't responded. There are four follow-up slots:
+
+| Nudge | Default channel |
+|---|---|
+| 1st follow-up | SMS |
+| 2nd follow-up | Email |
+| 3rd follow-up | SMS |
+| 4th follow-up | Email |
+
+Each nudge can have a different tone — the defaults progress from a direct CTA to a casual nudge to a soft close.
+
+### Interview Confirmations
+
+Sent after a candidate selects a time slot and the calendar event is booked. Should include:
+- The confirmed date and time
+- Any dial-in or meeting link information
+- What to do if they need to reschedule
+
+### Same-Day Reminders
+
+Sent to candidates on the day of (or day before) their interview, depending on the interview time. See [Scheduling](/recruiter/scheduling) for the reminder timing rules.
+
+## Template variables
+
+Templates support variables that are filled in automatically:
+
+| Variable | Value |
+|---|---|
+| `{{candidate_name}}` | Candidate's first name |
+| `{{recruiter_name}}` | Recruiter's first name |
+| `{{interview_date}}` | Formatted interview date |
+| `{{interview_time}}` | Formatted interview time (candidate's timezone) |
+| `{{available_slots}}` | List of proposed time slots |
+| `{{booking_link}}` | Scheduling link (if configured) |
+
+## Saving templates
+
+Edit the template content in the text area for each template type and click **Save**. New templates take effect on the next send. In-flight conversations are not affected — the agent will use the new template the next time it needs to send that message type.
+
+## The agent adapts templates
+
+The communication agent doesn't send templates verbatim. It uses them as a foundation and may adjust wording to fit the conversation context — for example, referencing a question the candidate asked in a previous message. If you want tighter control over message content, make your templates more specific.

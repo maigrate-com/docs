@@ -1,0 +1,38 @@
+---
+title: "Document Review"
+description: "Configure how the document check agent validates candidate credentials and certifications."
+---
+
+The Document Review settings page controls the policy the document check agent uses when extracting and validating candidate credentials.
+
+Navigate to **Settings → Document Review** to access this page.
+
+## What document review does
+
+When a candidate submits a document (resume, certification, license), the document check agent:
+1. Extracts the relevant information from the document
+2. Validates it against your configured policy (e.g., checks expiration dates, required credential types)
+3. Returns a pass, fail, or escalation for human review
+
+## Credential review policy
+
+The policy defines what credentials are required, what constitutes a valid credential, and what should trigger an escalation vs. an automatic rejection.
+
+Write your policy in plain language. Examples:
+- "Candidates must have a current, valid certification in X. Expired certifications should be flagged for review."
+- "Resumes must show at least 18 months of continuous relevant experience."
+- "Any gap in employment longer than 6 months should be noted in the rationale."
+
+## When document review escalates
+
+The document check agent escalates when:
+- A required document is missing or unreadable
+- A credential is expired and the policy doesn't specify automatic rejection
+- The extracted information is ambiguous or contradictory
+- The document format is unexpected and extraction confidence is low
+
+Escalations from document review appear in the Command Center like any other escalation.
+
+## Document storage
+
+Candidate documents (typically resumes) are fetched from Salesforce and stored in S3. Recruiters can download the original document from the Details tab in the application drawer.

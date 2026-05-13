@@ -1,72 +1,89 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "name": "Maigrate Hub",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#124bd2",
+    "light": "#4B72E0",
+    "dark": "#0b126c"
   },
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Getting Started",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Overview",
             "pages": [
               "index",
               "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/components",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "Agent ready",
-            "pages": [
-              "agent-ready/prompt",
-              "agent-ready/visibility",
-              "agent-ready/contextual",
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "concepts"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "Recruiter Guide",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Daily Work",
             "pages": [
-              "api-reference/introduction"
+              "recruiter/command-center",
+              "recruiter/applicants",
+              "recruiter/agent-activity"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Workflows",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "recruiter/screening",
+              "recruiter/scheduling",
+              "recruiter/communication",
+              "recruiter/escalations"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Settings",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "settings/overview"
+            ]
+          },
+          {
+            "group": "Agent Behavior",
+            "pages": [
+              "settings/screening",
+              "settings/scheduling",
+              "settings/communication",
+              "settings/document-review",
+              "settings/knowledge-base",
+              "settings/block-candidates"
+            ]
+          },
+          {
+            "group": "Team",
+            "pages": [
+              "settings/recruiters",
+              "settings/branding"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Integrations",
+        "groups": [
+          {
+            "group": "Setup Guides",
+            "pages": [
+              "integrations/salesforce",
+              "integrations/google-workspace",
+              "integrations/twilio",
+              "integrations/email"
             ]
           }
         ]
@@ -75,52 +92,36 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "Support",
+          "href": "mailto:support@maigrate.com",
+          "icon": "envelope"
         }
       ]
     }
   },
   "logo": {
     "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "dark": "/logo/dark.svg",
+    "href": "/"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:support@maigrate.com"
       }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
+    ]
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "claude"
+    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "linkedin": "https://linkedin.com/company/maigrate"
     }
   }
 }

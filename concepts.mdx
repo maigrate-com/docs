@@ -1,0 +1,110 @@
+---
+title: "Key Concepts"
+description: "Vocabulary and mental models for understanding how Maigrate Hub works."
+---
+
+Understanding these terms will make the rest of the docs — and the app itself — much easier to follow.
+
+## Core entities
+
+### Candidate
+
+The person applying for a job. Candidates enter Maigrate from Salesforce (as a `Contact` record). Maigrate stores a local copy for operational purposes, but Salesforce remains the source of truth for identity and contact data.
+
+### Application
+
+A candidate's application to a specific role. The application is the core workflow object — it carries the screening decision, scheduling status, recruiter assignment, and links to the communication thread.
+
+A candidate can have multiple applications (one per role).
+
+### Job
+
+The role being recruited for. Job metadata (title, description, location, requirements) is cached from Workable via Salesforce. The screening agent uses it to evaluate candidate fit.
+
+### Recruiter
+
+A human team member in Maigrate. Recruiters own the candidate relationship: they review screening decisions, manage availability, mark no-shows, and handle escalations. Each recruiter has a connected Google Calendar used for interview scheduling.
+
+## Agents
+
+Maigrate has three AI agents, each responsible for a specific workflow domain.
+
+### Screening Agent
+
+Reads the candidate profile, job description, application answers, and organization-level screening directives. Returns a decision (`advance`, `review`, or `reject`) with a written rationale.
+
+The recruiter can override any screening decision from the Screening tab.
+
+### Scheduling Agent
+
+Manages the full interview scheduling lifecycle: reading recruiter calendar availability, proposing time slots, sending the initial scheduling outreach, handling slot selection, booking the Google Calendar event, and managing reschedules and no-shows.
+
+### Communication Agent
+
+Writes and sends candidate-facing messages (SMS, email). Handles inbound replies, evaluates whether the candidate's response is actionable or ambiguous, and decides next steps. It also runs follow-up automation when candidates don't respond.
+
+## Workflow concepts
+
+### Directive
+
+The brief given to the communication or scheduling agent for a specific thread. It specifies the goal ("schedule an interview"), allowed channels, tone, constraints, and context. Directives are created automatically by the system and can be influenced by operator guidance.
+
+### Thread
+
+The ongoing conversation with a candidate. One thread per workflow interaction (e.g., one thread for initial scheduling outreach). The thread stores the full message history, current status, follow-up state, and the active directive.
+
+### Escalation
+
+A first-class record created when an agent needs a human to step in. Escalations surface in the Command Center and block further automation on the affected application until resolved.
+
+Common causes:
+- Ambiguous or concerning candidate reply
+- Scheduling conflicts that can't be resolved automatically
+- Repeated no-shows
+- Document validation failures
+- Weekend/after-hours exception requests
+
+Each escalation includes the agent's explanation of what happened and recommendations for resolution.
+
+### Operator Guidance
+
+A private note a recruiter writes to an agent, visible in the Communication tab. The agent treats it as authoritative instruction but never shows it verbatim to the candidate. Use it to course-correct the agent ("Skip the next follow-up — I'll call them directly") or provide context it doesn't have.
+
+## Communication concepts
+
+### Channel routing
+
+Maigrate chooses the outreach channel automatically:
+
+| Condition | Channel |
+|---|---|
+| Valid mobile phone | SMS via Twilio |
+| Invalid phone or landline | Email via Resend |
+| No phone | Email (or escalation if email is also missing) |
+
+Candidates can opt out of SMS; those opt-outs are stored and respected on future sends.
+
+### Follow-up policy
+
+When a candidate doesn't respond to a scheduling message, the follow-up policy kicks in automatically:
+
+| Attempt | Timing | Channel |
+|---|---|---|
+| 1 | First available send window | SMS |
+| 2 | 5 hours later | Email |
+| 3 | 1 day later | SMS |
+| 4 | 2 days later | Email |
+
+After 4 unanswered attempts, the thread is marked `unresponsive`. All sends respect a window of 8 AM–9 PM in the candidate's local timezone.
+
+## Salesforce integration
+
+### Writeback
+
+When key events happen in Maigrate, they are written back to the Salesforce Contact record. This keeps Salesforce/Lumary accurate without manual data entry.
+
+Events that trigger a writeback: candidate advanced, interview scheduled, no-show, candidate withdrew, candidate rejected, candidate-facing message sent.
+
+### Reconciliation
+
+A background job runs every 6 hours to pull in Salesforce Contacts that may have been missed by the real-time push. This is a safety net, not the primary intake path.

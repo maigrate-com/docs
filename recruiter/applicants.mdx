@@ -1,0 +1,84 @@
+---
+title: "Applicants"
+description: "Browse your full application board and drill into any candidate's details, screening decision, and communication thread."
+---
+
+The Applicants page is your full application board — every candidate Maigrate has processed, with their current status at a glance.
+
+## The application board
+
+The board shows one row per application. Each row displays:
+- **Candidate name** and contact details
+- **Role** — the job they applied for
+- **Screening decision** — `Advance`, `Review`, or `Reject`
+- **Scheduling status** — `Not started`, `Awaiting candidate response`, `Scheduled`, `Completed`, etc.
+- **Recruiter assigned**
+- **Last activity** — the most recent agent action or message
+
+Use the search and filter controls to narrow the list by decision, status, recruiter, or date range.
+
+## The application drawer
+
+Click any row to open the application drawer. This is the primary workspace for a single candidate. It has three tabs.
+
+### Details tab
+
+The Details tab is the operational view of the application.
+
+**Contact information**
+- Name, email, phone
+- Edit contact details directly if the Salesforce data needs a correction
+
+**Recruiter assignment**
+- The recruiter currently assigned to this candidate
+- Change the assignment from the dropdown if needed
+
+**Resume**
+- Download the candidate's resume (fetched from Salesforce) when available
+
+**Manual actions**
+
+| Button | What it does |
+|---|---|
+| **Run Screening** | Manually trigger the screening agent for this candidate |
+| **Schedule Interview** | Manually trigger the scheduling flow (creates outreach thread) |
+| **Mark Completed** | Mark the current interview as completed (only active after scheduling) |
+| **Mark No-Show** | Mark the candidate as a no-show; triggers reschedule outreach |
+
+### Screening tab
+
+See [Screening](/recruiter/screening) for the full screening workflow.
+
+The Screening tab shows:
+- **Decision** with the agent's confidence level
+- **Rationale** — the agent's written explanation
+- **Candidate evidence** — the raw application data and job context the agent used
+- **Override controls** — change the decision and add a reason
+
+### Communication tab
+
+See [Communication](/recruiter/communication) for the full messaging workflow.
+
+The Communication tab shows:
+- **Thread history** — all messages sent to and received from the candidate, in chronological order
+- **Channel indicator** — SMS or email for each message
+- **Agent actions** — what the agent decided to do after each inbound message
+- **Direct message input** — send an SMS or email to the candidate yourself
+- **Operator guidance input** — send a private instruction to the agent
+- **Agent control** — dismiss the agent (stop automated messaging) or hand the thread back
+
+## Application status flow
+
+```
+Not started
+  → Awaiting candidate response   (after initial outreach)
+  → Scheduled                     (after candidate confirms a slot)
+  → Completed                     (after recruiter marks interview done)
+
+  → No-show → reschedule → Scheduled
+  → Repeat no-show → Escalation + reject recommendation
+
+  → Withdrew                      (candidate opts out)
+  → Failed outreach               (no response after max follow-ups)
+  → Rejected                      (screening reject, or recruiter override)
+```

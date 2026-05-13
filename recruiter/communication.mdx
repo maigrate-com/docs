@@ -1,0 +1,78 @@
+---
+title: "Communication"
+description: "How Maigrate manages candidate conversations — channels, threads, follow-ups, and direct recruiter messaging."
+---
+
+All candidate communication in Maigrate flows through **threads** — structured conversations that the communication agent manages. Recruiters can view every message, send direct messages, and give the agent private guidance.
+
+## Viewing a thread
+
+Open any application and click the **Communication** tab. The thread view shows:
+
+- Every message sent to and received from the candidate, in chronological order
+- The channel used for each message (SMS or email)
+- Agent reasoning and decisions logged between messages
+- Current thread status
+
+## Channel routing
+
+Maigrate chooses the outreach channel automatically:
+
+| Condition | Channel |
+|---|---|
+| Valid mobile phone number | SMS via Twilio |
+| Invalid phone or landline | Email via Resend |
+| No phone on file | Email (or escalation if email is also missing) |
+
+Candidates can opt out of SMS. Opt-outs are stored and respected on all future sends — the agent switches to email for that candidate.
+
+## Sending a direct message
+
+You can message a candidate directly from the Communication tab without going through the agent:
+
+1. Type your message in the input box at the bottom
+2. Select **SMS** or **Email**
+3. Click **Send**
+
+The message is delivered immediately via your configured Twilio or Resend account and logged in the thread. The agent sees the message in the thread history and factors it into its next action.
+
+## Operator guidance
+
+Operator guidance is a private instruction to the agent — the candidate never sees it. Use it to redirect the agent, provide context it doesn't have, or override its planned next step.
+
+Examples:
+- "Skip the next follow-up — I'm calling them directly"
+- "This candidate needs weekend availability — offer Saturday slots"
+- "Mark this thread as withdrawn, the candidate told me verbally they're no longer interested"
+
+The agent treats operator guidance as authoritative. Write guidance in the same input area, but select **Operator guidance** before sending.
+
+## Dismissing the agent
+
+You can dismiss the communication agent from a thread if you want to take over manually. After dismissal, the thread becomes `human_owned` — no further automated messages will be sent.
+
+To hand the thread back to the agent, use the **Resume automation** control.
+
+## Thread statuses
+
+| Status | Meaning |
+|---|---|
+| `Active` | Agent is actively managing the conversation |
+| `Awaiting candidate response` | Outreach sent, waiting for reply |
+| `Human owned` | Recruiter dismissed the agent; no automation |
+| `Resolved` | Workflow completed (interview booked, candidate withdrew, etc.) |
+| `Unresponsive` | No reply after all follow-up attempts |
+
+## Message templates
+
+The content of automated messages is configured in [Settings → Communication](/settings/communication). You can customize templates for:
+- Initial scheduling outreach
+- Follow-up nudges
+- Interview confirmations
+- Same-day reminders
+
+The agent uses these templates as a starting point and may adapt the tone and content to the specific conversation context.
+
+## Salesforce writeback
+
+Every candidate-facing message (sent or received) is mirrored to Salesforce as a `Task` record on the Contact. This keeps your Salesforce/Lumary activity log current without manual data entry.

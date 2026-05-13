@@ -1,0 +1,34 @@
+---
+title: "Block Candidates"
+description: "Configure rules for automatically blocking specific candidates from being processed."
+---
+
+The Block Candidates settings page lets you define rules that prevent certain candidates from moving through the automated pipeline.
+
+Navigate to **Settings → Block Candidates** to access this page.
+
+## What blocking does
+
+When a candidate matches a block rule, they are excluded from automated screening and scheduling. They will not receive automated outreach. The application is not deleted — it remains visible in the Applicants board, but automation does not proceed.
+
+## Common use cases
+
+- **Previous no-hire decisions**: Block candidates who have been rejected before from re-entering the pipeline
+- **Active disqualifications**: Block candidates flagged by HR or legal from receiving outreach
+- **Domain or email blocks**: Block all applications from a specific email domain
+
+## Rule types
+
+Block rules can match on:
+- Email address (exact match)
+- Phone number (exact match)
+- Email domain (matches all addresses at that domain)
+- Candidate ID (Salesforce Contact ID)
+
+## Reviewing blocked candidates
+
+Blocked candidates appear in the Applicants board with a blocked status indicator. You can remove a block rule from this settings page to un-block a candidate and allow automation to proceed.
+
+<Warning>
+  Removing a block rule does not automatically re-trigger automation for previously blocked candidates. You'll need to manually trigger screening or scheduling from the candidate's Details tab.
+</Warning>

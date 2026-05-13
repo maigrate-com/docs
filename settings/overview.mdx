@@ -1,0 +1,49 @@
+---
+title: "Settings Overview"
+description: "Configure how the agents behave, manage your team, and connect your integrations."
+---
+
+The Settings page is where you configure Maigrate Hub's behavior for your organization. Navigate to **Settings** in the left sidebar to access it.
+
+Settings are organized into three groups.
+
+## Agent Behavior
+
+Controls what the agents do and how they do it. These settings directly shape automated decisions and messaging.
+
+| Setting | What it controls |
+|---|---|
+| [Screening](/settings/screening) | Criteria and directives the screening agent uses to evaluate candidates |
+| [Scheduling](/settings/scheduling) | Scheduling guidance, slot rules, and follow-up timing |
+| [Communication](/settings/communication) | Message templates for outreach, follow-ups, confirmations, and reminders |
+| [Document Review](/settings/document-review) | Credential review policy for the document check agent |
+| [Knowledge Base](/settings/knowledge-base) | Company and careers context the agents draw on when answering candidate questions |
+| [Block Candidates](/settings/block-candidates) | Rules for automatically blocking specific candidates from processing |
+
+## Team
+
+Manage the humans in the system.
+
+| Setting | What it controls |
+|---|---|
+| [Recruiters](/settings/recruiters) | Add and configure recruiter profiles, connect Google Calendar |
+| [Branding](/settings/branding) | Upload your organization logo for the navigation sidebar |
+
+## Integrations
+
+Connect Maigrate to your external systems.
+
+| Setting | What it controls |
+|---|---|
+| [Email](/settings/integrations/email) | Outbound sender address (Resend domain) |
+| [Salesforce](/integrations/salesforce) | JWT bearer connection to your Salesforce org |
+| [Twilio](/integrations/twilio) | Outbound and inbound SMS configuration |
+| [Google Workspace](/integrations/google-workspace) | Domain-wide calendar delegation for recruiter availability |
+
+<Note>
+  Integration credentials (API keys, secrets) are stored as SST secrets and configured by your engineering or IT team. The integration settings pages in the UI show connection status and let you configure org-level values like the from-email address.
+</Note>
+
+## Who can change settings?
+
+All authenticated users in your organization can view and edit Settings. If your team needs role-based access controls, contact Maigrate support.

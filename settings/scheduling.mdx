@@ -1,0 +1,51 @@
+---
+title: "Scheduling Settings"
+description: "Configure scheduling guidance, slot rules, and follow-up behavior."
+---
+
+The Scheduling settings page controls how the scheduling agent finds and proposes interview slots, and how aggressively it follows up with candidates.
+
+Navigate to **Settings → Scheduling** to access this page.
+
+## Scheduling guidance
+
+Scheduling guidance is free-text context the agent uses when making decisions about interview scheduling. Use it for:
+- Special availability constraints ("Our office is closed on Wednesdays")
+- Preferred slot times ("Morning slots are preferred for tech roles")
+- Recruiter-specific notes ("Recruiter Sarah only does video interviews")
+
+This is different from recruiter calendar configuration — guidance affects how the agent interprets availability, while calendar access determines what slots are actually free.
+
+## Default slot rules
+
+| Rule | Default value |
+|---|---|
+| Slot duration | 30 minutes |
+| Initial slot count | 4 proposed slots |
+| Search window | Next 7 days |
+| Recruiter business hours | 9 AM – 5 PM (recruiter's timezone) |
+| Weekend slots | Disabled by default |
+| After-hours slots | Disabled by default |
+
+Weekend and after-hours slot requests from candidates are escalated to a human rather than rejected outright — the recruiter decides whether to make an exception.
+
+## Follow-up timing
+
+| Attempt | Default timing |
+|---|---|
+| 1st follow-up | 5 hours after initial outreach (or first available send window) |
+| 2nd follow-up | 1 day after previous attempt |
+| 3rd follow-up | 2 days after previous attempt |
+| Max attempts | 4 total (including initial outreach) |
+
+All follow-ups are sent within the candidate's local-time send window: **8 AM – 7 PM** on weekdays. Weekend sends are disabled unless configured.
+
+After the maximum attempts are exhausted, the thread is marked `unresponsive`. The application status becomes `Failed outreach` and is not automatically changed further.
+
+## Send window
+
+The candidate send window (8 AM – 9 PM local time for initial outreach; 8 AM – 7 PM for follow-ups) is enforced automatically. If a message would be sent outside the window, it's queued until the window opens.
+
+## Recruiter calendar configuration
+
+Recruiter calendar access is configured per-recruiter in [Settings → Recruiters](/settings/recruiters). Each recruiter must have a Google Calendar connected for scheduling to work.
