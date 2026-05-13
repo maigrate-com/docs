@@ -9,7 +9,7 @@ Understanding these terms will make the rest of the docs — and the app itself 
 
 ### Candidate
 
-The person applying for a job. Candidates enter Maigrate from Salesforce (as a `Contact` record). Maigrate stores a local copy for operational purposes, but Salesforce remains the source of truth for identity and contact data.
+The person applying for a job. Maigrate stores a working copy of the candidate's contact details and application data for use across the automated workflow.
 
 ### Application
 
@@ -19,7 +19,7 @@ A candidate can have multiple applications (one per role).
 
 ### Job
 
-The role being recruited for. Job metadata (title, description, location, requirements) is cached from Workable via Salesforce. The screening agent uses it to evaluate candidate fit.
+The role being recruited for. Job metadata (title, description, location, requirements) is pulled from your ATS and used by the screening agent to evaluate candidate fit.
 
 ### Recruiter
 
@@ -27,21 +27,21 @@ A human team member in Maigrate. Recruiters own the candidate relationship: they
 
 ## Agents
 
-Maigrate has three AI agents, each responsible for a specific workflow domain.
+Maigrate has three AI agents. Think of them as junior recruiters who handle the high-volume work and bring issues to a senior recruiter (you) whenever the situation needs human judgment.
 
 ### Screening Agent
 
-Reads the candidate profile, job description, application answers, and organization-level screening directives. Returns a decision (`advance`, `review`, or `reject`) with a written rationale.
+Reviews each application — the candidate profile, job description, application answers, and your screening directives — and returns a recommendation (`advance`, `review`, or `reject`) with a written rationale. Like a junior screener giving you a summary and recommendation before you decide.
 
-The recruiter can override any screening decision from the Screening tab.
+You can override any screening decision from the Screening tab.
 
 ### Scheduling Agent
 
-Manages the full interview scheduling lifecycle: reading recruiter calendar availability, proposing time slots, sending the initial scheduling outreach, handling slot selection, booking the Google Calendar event, and managing reschedules and no-shows.
+Handles the calendar coordination: reads recruiter availability, proposes interview times, sends the outreach, handles the candidate's reply, and books the Google Calendar event. It also manages reschedules and chases non-responders. When it hits a situation it can't resolve (conflicting constraints, repeated no-shows, special requests), it escalates to you.
 
 ### Communication Agent
 
-Writes and sends candidate-facing messages (SMS, email). Handles inbound replies, evaluates whether the candidate's response is actionable or ambiguous, and decides next steps. It also runs follow-up automation when candidates don't respond.
+Manages the conversation with the candidate — writing messages, reading replies, deciding next steps. It knows when a reply is clear enough to act on and when something is ambiguous enough to need a human. It runs follow-up messages automatically when candidates go quiet, and escalates when the conversation goes somewhere it can't handle alone.
 
 ## Workflow concepts
 
@@ -86,25 +86,6 @@ Candidates can opt out of SMS; those opt-outs are stored and respected on future
 
 ### Follow-up policy
 
-When a candidate doesn't respond to a scheduling message, the follow-up policy kicks in automatically:
+When a candidate doesn't respond to a scheduling message, the follow-up policy kicks in automatically. The timing, number of attempts, and channels are configurable in [Settings → Scheduling](/settings/scheduling) and [Settings → Communication](/settings/communication). All sends respect a quiet-hours window so candidates aren't messaged late at night.
 
-| Attempt | Timing | Channel |
-|---|---|---|
-| 1 | First available send window | SMS |
-| 2 | 5 hours later | Email |
-| 3 | 1 day later | SMS |
-| 4 | 2 days later | Email |
-
-After 4 unanswered attempts, the thread is marked `unresponsive`. All sends respect a window of 8 AM–9 PM in the candidate's local timezone.
-
-## Salesforce integration
-
-### Writeback
-
-When key events happen in Maigrate, they are written back to the Salesforce Contact record. This keeps Salesforce/Lumary accurate without manual data entry.
-
-Events that trigger a writeback: candidate advanced, interview scheduled, no-show, candidate withdrew, candidate rejected, candidate-facing message sent.
-
-### Reconciliation
-
-A background job runs every 6 hours to pull in Salesforce Contacts that may have been missed by the real-time push. This is a safety net, not the primary intake path.
+After the configured maximum attempts are exhausted, the thread is marked `unresponsive` and no further automated messages are sent.

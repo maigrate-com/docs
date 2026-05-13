@@ -19,7 +19,7 @@ Click **Add Recruiter** and fill in:
 - **Timezone** — used to interpret their calendar availability and calculate interview slot times
 
 <Note>
-  Recruiters can also be auto-created when Maigrate intakes a candidate from Salesforce. If the `Assigned_Recruiter__r.Email` field on the Salesforce Contact doesn't match an existing recruiter in Maigrate, a profile is created automatically from the Salesforce data.
+  Recruiters can also be auto-created during candidate intake. If the assigned recruiter on an incoming application doesn't match an existing recruiter profile in Maigrate, one is created automatically from the intake data.
 </Note>
 
 ## Connecting Google Calendar
@@ -47,6 +47,6 @@ If the calendar shows no availability when you expect slots, check:
 
 ## Recruiter assignment
 
-Candidates are assigned to recruiters based on the `Assigned_Recruiter__r.Email` field in Salesforce. You can manually change the assignment from the Details tab in any candidate's application drawer.
+Candidates are assigned to recruiters based on the assignment data in the incoming application. You can manually change the assignment from the Details tab in any candidate's application drawer.
 
 If a candidate doesn't have an assigned recruiter when scheduling is triggered, the scheduling agent will pick one automatically based on availability.

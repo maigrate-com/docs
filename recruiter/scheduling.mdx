@@ -39,16 +39,9 @@ The communication agent handles inbound replies:
 
 ## Follow-up automation
 
-If a candidate doesn't respond, Maigrate follows up automatically:
+If a candidate doesn't respond, Maigrate follows up automatically based on the follow-up policy configured in [Settings → Scheduling](/settings/scheduling) and [Settings → Communication](/settings/communication). The timing, number of attempts, and which channel each follow-up uses are all configurable.
 
-| Attempt | Timing after last attempt | Channel |
-|---|---|---|
-| 1 | Initial outreach | SMS |
-| 2 | 5 hours | Email |
-| 3 | 1 day | SMS |
-| 4 | 2 days | Email |
-
-All sends respect an 8 AM–9 PM window in the candidate's local timezone. After 4 unanswered attempts, the thread is marked `unresponsive` and status becomes `Failed outreach`.
+All sends respect a quiet-hours window in the candidate's local timezone. After the maximum attempts are exhausted, the thread is marked `unresponsive` and status becomes `Failed outreach`.
 
 ## Booking
 
@@ -56,7 +49,7 @@ The scheduling agent books the interview only after the candidate confirms a slo
 - Creates or updates a Google Calendar event on the recruiter's calendar
 - Requests a Google Meet link automatically
 - Sends calendar invites to recruiter and candidate
-- Records the interview in Maigrate and writes the scheduled date back to Salesforce
+- Records the interview in Maigrate
 
 ## Interview reminders
 
@@ -76,7 +69,7 @@ After an interview is booked, the recruiter marks the outcome from the Command C
 
 **Repeat no-show**: a second no-show creates an escalation in the Command Center with a reject recommendation. The recruiter decides whether to reject or give the candidate another chance.
 
-**Mark Completed**: closes the scheduling workflow. A writeback is sent to Salesforce.
+**Mark Completed**: closes the scheduling workflow.
 
 ## Scheduling settings
 
