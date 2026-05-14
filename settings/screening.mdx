@@ -1,0 +1,51 @@
+---
+title: "Screening Settings"
+description: "Configure the criteria and directives the screening agent uses to evaluate candidates."
+---
+
+The Screening settings page lets you write organization-level instructions that the screening agent applies to every candidate evaluation.
+
+<Frame>
+  <img src="/images/settings-screening.png" alt="Screening settings showing criteria sources, baseline rules, and the additional directives editor" />
+</Frame>
+
+Navigate to **Settings → Screening** to access this page.
+
+## Screening directives
+
+Screening directives are plain-language instructions that supplement the job description when the agent evaluates a candidate. They're your opportunity to encode your organization's hiring standards directly into the screening logic.
+
+### What to put in directives
+
+Directives work best for:
+- **Minimum requirements** — "Candidates must have at least 2 years of relevant experience"
+- **Disqualifying factors** — "Reject candidates who have not completed required certifications"
+- **Soft criteria** — "Prefer candidates located within commuting distance of the job site"
+- **Context** — "This role requires rotating shift availability; candidates who specify fixed hours only should be marked for review"
+
+Directives should be factual and specific. Avoid vague instructions like "look for good candidates" — the agent evaluates against concrete criteria more reliably.
+
+### What directives don't do
+
+Directives can't override the agent's baseline rules:
+- The agent will not invent facts about a candidate to justify a decision
+- When evidence is ambiguous, the agent prefers `Review` over `Reject`
+- Directives are organization-wide — they apply to all roles unless your directives themselves include role-specific conditions
+
+### Saving directives
+
+Type your directives in the text area and click **Save**. The new directives take effect on the next screening run. Existing decisions are not retroactively changed.
+
+## Re-running screening
+
+After updating your directives, you may want to re-screen candidates whose decisions were influenced by the old criteria. Use the **Run Screening** button in each candidate's Details tab to trigger a fresh evaluation.
+
+<Note>
+  Re-running screening overwrites the previous agent decision with the new one. Recruiter overrides are not affected — they remain the authoritative decision.
+</Note>
+
+## Recruiter overrides
+
+Recruiters can always override the agent's screening decision on a per-candidate basis from the Screening tab in the application drawer. Overrides are stored separately from the agent's decision and take precedence for all downstream actions.
+
+See [Screening](/recruiter/screening) for the override workflow.

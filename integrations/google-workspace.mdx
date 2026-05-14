@@ -1,0 +1,53 @@
+---
+title: "Google Workspace Integration"
+description: "Enable calendar access so Maigrate can read recruiter availability and book interviews."
+---
+
+Maigrate uses Google Calendar to read recruiter availability and create interview events. This requires a one-time setup by your Google Workspace administrator.
+
+## What Maigrate does with calendar access
+
+- **Reads** recruiter calendars to find free/busy blocks when generating interview slots
+- **Creates events** on recruiter calendars when interviews are booked (with Google Meet links)
+- **Sends calendar invites** to both the recruiter and candidate
+
+Maigrate does **not** access email, user directories, Drive, or any other Google Workspace data.
+
+## Setup (Google Workspace admin)
+
+This setup takes about 5 minutes and requires Google Workspace admin access.
+
+### Step 1: Get the Maigrate service account client ID
+
+Find the client ID in **Settings → Google Workspace** in the Maigrate app, or ask your Maigrate administrator to provide it.
+
+### Step 2: Add domain-wide delegation
+
+1. Go to the [Google Workspace Admin Console](https://admin.google.com)
+2. Navigate to **Security → Access and data control → API controls → Domain-wide delegation**
+3. Click **Add new**
+4. In the **Client ID** field, paste the Maigrate client ID
+5. In the **OAuth scopes** field, enter:
+   ```
+   https://www.googleapis.com/auth/calendar
+   ```
+6. Click **Authorize**
+
+### Step 3: Verify the connection
+
+In the Maigrate app, go to **Settings → Google Workspace** and click **Test Connection**. The status indicator should turn green.
+
+If the test fails, wait a few minutes for the delegation to propagate and try again.
+
+## How recruiter calendars work
+
+Once delegation is set up, Maigrate can access any recruiter calendar by email address. For the scheduling agent to use a recruiter's calendar:
+
+1. The recruiter profile in Maigrate must have an email address that matches their Google Workspace account
+2. The recruiter's calendar must have real availability — if their calendar is fully booked for the next 7 days, the agent won't find any slots and will escalate
+
+Recruiters can view their Maigrate-visible availability in **Settings → Recruiters → [Recruiter Name] → Calendar**.
+
+## Revoking access
+
+To disconnect Maigrate from Google Calendar, return to the domain-wide delegation page in the Google Admin Console and remove the Maigrate client ID entry.

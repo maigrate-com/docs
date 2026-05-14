@@ -1,0 +1,41 @@
+---
+title: "Agent Activity"
+description: "A time-ordered log of everything the agents have done across your recruiting pipeline."
+---
+
+The Agent Activity page gives you a chronological view of all agent actions
+
+<Frame>
+  <img src="/images/agent-activity.png" alt="Agent Activity page showing metrics and a feed of recent outbound messages" />
+</Frame> — screenings run, messages sent, interviews booked, escalations created. It's your audit trail and the best place to diagnose what happened for a specific candidate.
+
+## What shows in the activity feed
+
+Each event in the feed includes:
+- **Timestamp** — when the action occurred
+- **Event type** — what kind of action it was
+- **Candidate** — who it affected
+- **Summary** — a brief description of the outcome
+
+### Event types
+
+| Event type | What it means |
+|---|---|
+| **Screening** | The screening agent evaluated a candidate and returned a decision |
+| **Message sent** | An outbound SMS or email was sent to a candidate |
+| **Message received** | An inbound reply from a candidate was recorded |
+| **Interview booked** | A Google Calendar event was created for an interview |
+| **Interview rescheduled** | An existing interview was moved to a new time |
+| **Interview cancelled** | An interview was cancelled (candidate withdrew or no-show not rescheduled) |
+| **Escalation created** | The agent escalated a situation to a human |
+| **Escalation resolved** | A recruiter resolved an escalation |
+| **Follow-up sent** | A follow-up message was sent after no candidate response |
+| **No-show recorded** | A recruiter marked a candidate as a no-show |
+
+## Filtering the feed
+
+Use the time-window selector to narrow the feed to the last hour, day, week, or a custom range. You can also filter by event type or by specific recruiter.
+
+## Diagnosing a candidate
+
+If you need to understand exactly what happened with a specific candidate, open their application drawer from the Applicants page — the Communication tab shows the full message thread, and the Screening tab shows the decision history. The Activity feed is better for a cross-candidate view (e.g., "what did the agents do in the last 4 hours?").

@@ -1,0 +1,76 @@
+---
+title: "Scheduling"
+description: "How Maigrate schedules interviews — from initial outreach through booking, reminders, and no-shows."
+---
+
+Once a candidate is advanced, the scheduling agent takes over. It reads recruiter calendars, proposes interview slots, handles the candidate's reply, and books the Google Calendar event.
+
+## How scheduling starts
+
+Scheduling can be triggered two ways:
+
+1. **Automatically** — when `AUTO_SCHEDULE_ON_ADVANCE` is enabled, advancing a candidate (by the agent or by recruiter override) queues scheduling immediately
+2. **Manually** — click **Schedule Interview** in the Details tab of the application drawer
+
+When triggered, the scheduling agent:
+1. Assigns a recruiter if one isn't already assigned
+2. Reads the recruiter's Google Calendar for the next 7 days
+3. Generates up to 4 available interview slots (30-minute blocks within business hours)
+4. Creates a communication thread and queues the communication agent to send the first outreach
+
+## The initial outreach
+
+The first message to the candidate proposes the available slots (or a booking link, if one is configured). The message is sent via SMS if the candidate has a valid mobile number, or email if not.
+
+After the outreach is sent, the application status moves to `Awaiting candidate response`.
+
+## What happens when the candidate replies
+
+The communication agent handles inbound replies:
+
+| Reply type | Agent action |
+|---|---|
+| Selects a slot | Books the interview on Google Calendar, sends a confirmation, status → `Scheduled` |
+| Asks for different times | Searches for new availability and responds with options |
+| Asks a question | Answers using the knowledge base, stays in scheduling mode |
+| Weekend/after-hours request | Escalates to a human (policy: don't force daytime alternatives unilaterally) |
+| Ambiguous or concerning reply | Escalates to a human |
+| No reply | Follow-up automation kicks in (see below) |
+
+## Follow-up automation
+
+If a candidate doesn't respond, Maigrate follows up automatically based on the follow-up policy configured in [Settings → Scheduling](/settings/scheduling) and [Settings → Communication](/settings/communication). The timing, number of attempts, and which channel each follow-up uses are all configurable.
+
+All sends respect a quiet-hours window in the candidate's local timezone. After the maximum attempts are exhausted, the thread is marked `unresponsive` and status becomes `Failed outreach`.
+
+## Booking
+
+The scheduling agent books the interview only after the candidate confirms a slot. Booking:
+- Creates or updates a Google Calendar event on the recruiter's calendar
+- Requests a Google Meet link automatically
+- Sends calendar invites to recruiter and candidate
+- Records the interview in Maigrate
+
+## Interview reminders
+
+Maigrate sends automatic reminders before confirmed interviews:
+
+| Interview time | When reminder sends |
+|---|---|
+| Before 11 AM candidate-local | 3 PM the previous day |
+| After 3 PM candidate-local | 3 PM the same day |
+| 11 AM–3 PM | No reminder sent |
+
+## No-shows and rescheduling
+
+After an interview is booked, the recruiter marks the outcome from the Command Center or Details tab.
+
+**Mark No-Show**: triggers the scheduling agent to reach out and reschedule. The candidate receives a new slot offer.
+
+**Repeat no-show**: a second no-show creates an escalation in the Command Center with a reject recommendation. The recruiter decides whether to reject or give the candidate another chance.
+
+**Mark Completed**: closes the scheduling workflow.
+
+## Scheduling settings
+
+You can configure slot duration, recruiter business hours, follow-up timing, and scheduling guidance in [Settings → Scheduling](/settings/scheduling).

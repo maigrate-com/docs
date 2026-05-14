@@ -1,0 +1,69 @@
+---
+title: "Escalations"
+description: "What creates escalations, how to resolve them, and how to give the agent guidance when you're done."
+---
+
+Escalations are Maigrate's way of surfacing judgment calls to humans. When an agent encounters a situation it can't resolve on its own — ambiguity, a policy exception, a repeated failure — it creates an escalation and pauses automation on that candidate.
+
+<Frame>
+  <img src="/images/escalations.png" alt="Command Center work queue showing pending escalations with reason, candidate, and age" />
+</Frame>
+
+Unresolved escalations appear in the **Command Center** and in the sidebar badge count.
+
+## What creates an escalation
+
+| Cause | Example |
+|---|---|
+| Ambiguous candidate reply | Reply could mean "yes" or "call me back later" — agent can't tell |
+| Scheduling conflict | No recruiter availability in the next 7 days |
+| Repeat no-show | Candidate missed their second interview |
+| Weekend/after-hours request | Candidate only available on Saturday — policy requires human approval |
+| Document validation failure | Required credential couldn't be verified |
+| Delivery failure | Messages consistently bouncing or undeliverable |
+| Ambiguous screening | Agent couldn't determine fit with available evidence |
+
+## Anatomy of an escalation
+
+Each escalation record includes:
+- **Source agent** — which agent created it (Screening, Scheduling, or Communication)
+- **Reason** — a short dashboard label describing the issue
+- **Full explanation** — the agent's detailed account of what happened and what it recommends
+- **Candidate context** — name, role, current scheduling status, assigned recruiter
+- **SLA deadline** — when this needs to be resolved (if configured)
+
+## Resolving an escalation
+
+Click any escalation in the Command Center to open the candidate's application drawer.
+
+<Frame>
+  <img src="/images/escalation-drawer.png" alt="Escalation detail drawer showing the agent's explanation, screening context, and resolution buttons" />
+</Frame>
+
+From the drawer you can:
+
+**Send a direct message** — reach out to the candidate directly from the Communication tab. After sending, mark the escalation resolved.
+
+**Send operator guidance** — give the agent private instructions about how to proceed. For example: "Offer them a slot next Monday at 9 AM" or "This candidate is exempt from the weekend policy — proceed with Saturday slots."
+
+**Override the screening decision** — if the escalation is screening-related, use the Screening tab to override to `Advance`, `Review`, or `Reject`.
+
+**Mark resolved** — once you've taken the appropriate action, click **Mark Resolved**. This removes the escalation from the queue.
+
+<Note>
+  Resolving an escalation does not automatically resume the agent. If you want the agent to continue, send operator guidance telling it what to do next, or use the "Resume automation" control in the Communication tab.
+</Note>
+
+## Escalation vs. human-owned
+
+When you dismiss the agent from a thread, the thread becomes `human_owned` — no automated messages are sent. Escalations are different: they pause automation but the thread is still agent-managed. After you resolve the escalation, the agent can resume.
+
+If you want to fully take over a candidate's communication, dismiss the agent from the Communication tab. This is independent of escalation resolution.
+
+## SLA tracking
+
+If your configuration includes escalation SLAs, overdue escalations are visually highlighted in the Command Center. The SLA clock starts when the escalation is created and stops when it's resolved.
+
+## Audit trail
+
+All escalations are stored permanently. Even after resolution, you can see the escalation history for any candidate in the Agent Activity feed.

@@ -1,0 +1,58 @@
+---
+title: "Command Center"
+description: "Your work queue — escalations, upcoming interviews, and applications awaiting your review."
+---
+
+The Command Center is the default landing page in Maigrate Hub. It surfaces the highest-priority items across your recruiting pipeline so you know exactly what needs attention right now.
+
+<Frame>
+  <img src="/images/command-center.png" alt="Command Center showing the work queue, upcoming interviews, and review queue" />
+</Frame>
+
+## The three panels
+
+### Escalations
+
+Escalations are first-class records created when an agent encounters a situation it cannot resolve on its own. They block further automation on the affected candidate until a recruiter acts.
+
+The escalation badge in the sidebar shows the total count of unresolved escalations. The Command Center lists them in priority order — oldest and most time-sensitive first.
+
+Each escalation card shows:
+- **Candidate name and role** — who it's about
+- **Reason** — a short label (e.g., "Ambiguous reply", "Calendar conflict", "Repeat no-show")
+- **Source agent** — which agent created it
+- **Age** — how long it's been waiting
+
+Click an escalation to open the candidate's full detail drawer and resolve it. See [Escalations](/recruiter/escalations) for the full resolution workflow.
+
+### Upcoming Interviews
+
+A list of interviews scheduled in the next 48 hours. This panel helps you stay prepared and catch any last-minute issues.
+
+For each interview you can see:
+- Candidate name and recruiter assigned
+- Interview time (in your local timezone)
+- Status — `Scheduled`, `Completed`, or `No-show`
+
+From here you can mark an interview **Completed** after it finishes, or **No-show** if the candidate didn't attend. Marking a no-show triggers the scheduling agent to send a reschedule outreach. A second no-show creates an escalation with a reject recommendation.
+
+### Review Queue
+
+Applications with a screening decision of `Review` — meaning the agent flagged them for human judgment rather than advancing or rejecting automatically.
+
+These are not blocking the pipeline, but they won't move to scheduling until a recruiter either:
+- Accepts the `Review` decision (and manually triggers scheduling if appropriate), or
+- Overrides it to `Advance` (which can trigger automatic scheduling) or `Reject`
+
+See [Screening](/recruiter/screening) for how to work with screening decisions and overrides.
+
+## Sidebar badge
+
+The escalation count badge on the Command Center nav item updates in real time. It resets to zero when all escalations are resolved.
+
+## What to check first
+
+A healthy daily routine:
+1. Clear the escalation queue — unresolved escalations can delay candidates and miss SLAs
+2. Confirm any interviews from the last 24 hours as completed or no-show
+3. Skim the review queue for any candidates you want to advance manually

@@ -1,0 +1,149 @@
+---
+title: "Salesforce Integration"
+description: "Connect Maigrate Hub to your Salesforce org for candidate intake, writeback, and reconciliation."
+---
+
+Maigrate Hub integrates with Salesforce in two directions: reading candidate data in, and writing recruiting outcomes back. This guide covers the one-time setup required to connect a Salesforce org.
+
+<Note>
+  This setup requires access to Salesforce Setup and AWS Secrets Manager. It is typically completed by your engineering or IT team, not recruiters.
+</Note>
+
+## What the integration does
+
+**Intake (read)**: Salesforce pushes new Contact records to Maigrate when candidates apply. A background reconciliation job runs every 6 hours to catch any that were missed by the push.
+
+**Writeback (write)**: As candidates move through the pipeline, Maigrate updates their Salesforce Contact record — advancing, scheduling, rejecting, or marking them as inactive.
+
+**Message mirroring**: Every candidate-facing message is recorded on the Salesforce Contact as a `Task` activity.
+
+## Required Salesforce fields
+
+The integration reads and writes specific fields on the `Contact` object. Make sure they exist in your org before connecting.
+
+**Read by Maigrate:**
+
+| Field | Purpose |
+|---|---|
+| `Id`, `FirstName`, `LastName`, `Email` | Candidate identity |
+| `MobilePhone`, `Phone` | Contact channels (mobile preferred) |
+| `CreatedDate` | Application timestamp |
+| `RecordType.Name` | Must include `Employee` record type |
+| `Role_Type_Custom__c` | Launch filter — must include `Technician` |
+| `Assigned_Recruiter__r.Email` | Recruiter assignment |
+| `Workable_Application_Details__c` | Markers for fetching Workable application data |
+
+**Written by Maigrate:**
+
+| Field | Values written |
+|---|---|
+| `lmry__Onboarding_Step__c` | `Candidate Found`, `Interview`, `Inactive` |
+| `Status_custom__c` | Scheduling and outcome statuses |
+| `Step_Reason__c` | Reason codes for status changes |
+| `Interview_Scheduled_Date__c` | Interview date when booked |
+
+## Setup steps
+
+### 1. Generate a signing keypair
+
+Maigrate authenticates to Salesforce using the OAuth 2.0 JWT Bearer flow. You need an RSA keypair — the certificate goes into Salesforce, the private key goes into AWS Secrets Manager.
+
+```bash
+openssl req -x509 -nodes -newkey rsa:2048 \
+  -keyout salesforce-jwt.key \
+  -out salesforce-jwt.crt \
+  -days 3650 \
+  -subj "/CN=maigrate-recruiting-prod"
+```
+
+<Warning>
+  Never commit `salesforce-jwt.key` to version control. Treat it like a password.
+</Warning>
+
+### 2. Create an External Client App in Salesforce
+
+1. Go to **Setup → External Client App Manager → New External Client App**
+2. Set the name (e.g., `Maigrate Recruiting`) and contact email
+3. Under **API (Enable OAuth Settings)**:
+   - Enable OAuth
+   - Callback URL: `https://login.salesforce.com/services/oauth2/success`
+   - Enable **Use digital signatures** and upload `salesforce-jwt.crt`
+   - OAuth Scopes: `Manage user data via APIs (api)` and `Perform requests at any time (refresh_token, offline_access)`
+   - Enable the **JWT Bearer** flow
+4. Save and copy the **Consumer Key** — you'll need it in step 4
+
+Propagation can take up to 10 minutes.
+
+### 3. Pre-authorize the integration user
+
+JWT Bearer requires the integration user to be pre-approved in Salesforce.
+
+1. Create or designate a dedicated Salesforce integration user (don't use a human's account)
+2. On the External Client App → **Policies → OAuth Policies**:
+   - Permitted Users: **Admin approved users are pre-authorized**
+   - IP Relaxation: **Relax IP restrictions**
+3. Add the integration user's profile or permission set to the app's **App Settings → Profiles**
+
+The integration user needs:
+- API Enabled permission
+- Read/edit access to `Contact` and the fields listed above
+
+### 4. Store credentials in AWS Secrets Manager
+
+Create a secret named `recruiting/{stage}/salesforce` with this JSON shape:
+
+```json
+{
+  "client_id": "<Consumer Key from step 2>",
+  "username": "<integration user's Salesforce username>",
+  "private_key": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n",
+  "domain": "test"
+}
+```
+
+- `domain`: `test` for sandbox, `login` for production, or your My Domain prefix
+- `private_key`: full PEM contents with newlines escaped as `\n`
+
+Use the AWS CLI with `jq` to avoid newline encoding issues:
+
+```bash
+jq -n \
+  --arg client_id "<CLIENT_ID>" \
+  --arg username "<USERNAME>" \
+  --arg domain "test" \
+  --rawfile private_key ./salesforce-jwt.key \
+  '{$client_id, $username, $domain, $private_key}' \
+| aws secretsmanager create-secret \
+    --name "recruiting/prod/salesforce" \
+    --secret-string file:///dev/stdin
+```
+
+### 5. Deploy
+
+After the secret is in place, deploy the recruiting stack:
+
+```bash
+npx sst deploy --stage prod
+```
+
+### 6. Verify
+
+Run the smoke test script before going live:
+
+```bash
+uv run python scripts/test_salesforce_auth.py --stage prod
+```
+
+A successful run outputs the number of Contacts found in reconciliation. Common errors and their causes:
+
+| Error | Fix |
+|---|---|
+| `invalid_grant: user hasn't approved this consumer` | Pre-authorization (step 3) missing or not yet propagated |
+| `invalid_grant: invalid assertion` | Certificate/private key mismatch, or wrong `client_id`/`username` |
+| `No such column 'Workable_Application_Details__c'` | Custom field hasn't been created in this Salesforce org |
+
+## Troubleshooting
+
+**Salesforce push not triggering intake**: Check that the Salesforce push trigger is configured to call `POST /applications` with the Contact ID. This is set up separately — contact Maigrate support for the trigger configuration.
+
+**Writeback failures**: Check the `SalesforceWritebackDlqAlarm` CloudWatch alarm. Messages that fail after retries land in the DLQ with the error payload.

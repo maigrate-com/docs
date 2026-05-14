@@ -1,0 +1,76 @@
+---
+title: "Twilio Integration"
+description: "Connect Twilio for outbound SMS to candidates and inbound reply handling."
+---
+
+Maigrate uses Twilio to send SMS messages to candidates and receive their replies. SMS is the default outreach channel for candidates with a valid mobile number.
+
+<Note>
+  Twilio setup requires access to your Twilio account and AWS Secrets Manager. This is typically completed by engineering or IT, not recruiters.
+</Note>
+
+## What the integration does
+
+- **Outbound**: Sends scheduling outreach, follow-ups, confirmations, and reminders via SMS
+- **Inbound**: Receives candidate replies via webhook and routes them to the communication agent
+- **Opt-out**: Handles STOP/UNSUBSCRIBE replies and persists opt-outs so the candidate is never contacted via SMS again
+
+## Prerequisites
+
+- A Twilio account with a phone number capable of sending SMS
+- An SMS-capable Twilio number (long code or toll-free; 10DLC registered if sending to US numbers at volume)
+
+## Setup steps
+
+### 1. Get your Twilio credentials
+
+In your Twilio console:
+- **Account SID** and **Auth Token** — from the main dashboard
+- **Phone number** — the Twilio number Maigrate will send from
+
+### 2. Configure SST secrets
+
+```bash
+npx sst secret set TwilioAccountSid AC_YOUR_ACCOUNT_SID --stage prod
+npx sst secret set TwilioAuthToken your_auth_token --stage prod
+npx sst secret set TwilioPhoneNumber +15551234567 --stage prod
+npx sst secret set TwilioWebhookSecret your_webhook_secret --stage prod
+```
+
+### 3. Deploy the stack
+
+After setting the secrets, deploy:
+
+```bash
+npx sst deploy --stage prod
+```
+
+The deployment creates the inbound webhook endpoint at `POST /webhooks/twilio/sms`.
+
+### 4. Configure the inbound webhook in Twilio
+
+1. In the Twilio console, go to your phone number's configuration
+2. Under **Messaging → A message comes in**, set the webhook URL to:
+   ```
+   https://<your-api-gateway-url>/webhooks/twilio/sms
+   ```
+3. Method: **HTTP POST**
+4. Save
+
+### 5. Verify
+
+Send a test SMS to the Twilio number. It should appear in the Maigrate Agent Activity feed as an inbound message event. If it doesn't:
+- Check the Twilio console → Logs → Messaging for delivery details
+- Check the Lambda logs for the webhook handler in CloudWatch
+
+## SMS delivery rules
+
+Maigrate respects the following rules for SMS sends:
+
+- **Send window**: 8 AM – 9 PM in the candidate's local timezone (estimated from area code if timezone is unknown)
+- **Opt-outs**: STOP/UNSUBSCRIBE replies are recorded and permanently block future SMS to that number
+- **Landline detection**: Twilio lookup is used to detect landlines. Landline numbers fall back to email outreach
+
+## 10DLC registration (US)
+
+If you're sending SMS to US mobile numbers at volume (more than a few hundred messages per day), you'll need 10DLC registration. This involves registering your brand and campaign with The Campaign Registry (TCR) via Twilio. See [Twilio's 10DLC guide](https://help.twilio.com/articles/1260800720410) for details. Unregistered campaigns may experience delivery degradation or blocking by US carriers.

@@ -1,133 +1,51 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
-icon: 'star'
+title: "Welcome to Maigrate Hub"
+description: "AI-assisted recruiting that automates screening, scheduling, and candidate outreach — while keeping your recruiters in control."
 ---
 
-## Setting up
+## What is Maigrate Hub?
 
-Get your documentation site up and running in minutes.
+Maigrate Hub is an AI-powered recruiting workspace. When a new candidate enters the system, agents take over the routine work — screening, outreach, follow-ups, scheduling — and bring your recruiters in whenever they need human judgment.
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+Think of the agents as junior recruiters: they handle the high-volume, repetitive tasks and know when a situation is beyond their authority. Your senior recruiters stay focused on decisions that actually require them.
 
-## Make it yours
+## How it works
 
-Design a docs site that looks great and empowers your users.
+<Steps>
+  <Step title="Candidate enters the pipeline">
+    A new application triggers an intake. Maigrate fetches the candidate's details, resume, job context, and assigned recruiter.
+  </Step>
+  <Step title="Screening agent evaluates fit">
+    The AI screening agent reviews the candidate against the job description and your organization's screening directives. It returns `advance`, `review`, or `reject` with a written rationale.
+  </Step>
+  <Step title="Scheduling agent sends outreach">
+    Advanced candidates receive an interview scheduling message via SMS or email. The agent reads recruiter calendars, proposes concrete time slots, and books confirmed interviews directly to Google Calendar.
+  </Step>
+  <Step title="Communication agent manages the conversation">
+    Inbound replies — confirmations, reschedule requests, questions — are handled automatically. The agent follows up on non-responders and escalates anything ambiguous.
+  </Step>
+  <Step title="Recruiters stay in the loop">
+    Escalations, screening reviews, and interview outcomes surface in the Command Center. Recruiters resolve edge cases, override decisions, and send direct messages when needed.
+  </Step>
+</Steps>
 
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+## Key areas of the app
+
+<CardGroup cols={2}>
+  <Card title="Command Center" icon="gauge" href="/recruiter/command-center">
+    Your work queue: escalations needing action, upcoming interviews, and applications awaiting screening review.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Applicants" icon="users" href="/recruiter/applicants">
+    Browse and filter your full application board. Open any candidate's detail drawer to see screening decisions, communication threads, and interview status.
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="Agent Activity" icon="timeline" href="/recruiter/agent-activity">
+    A time-ordered log of everything the agents have done: screenings, messages sent, interviews booked, escalations created.
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="Settings" icon="gear" href="/settings/overview">
+    Configure how the agents behave: screening directives, scheduling guidance, message templates, recruiter calendars, and integrations.
   </Card>
-</Columns>
+</CardGroup>
 
-## Create beautiful pages
+## New to Maigrate?
 
-Everything you need to create world-class documentation.
-
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
-
-## Make your content agent ready
-
-Make your docs work for humans and AI agents alike.
-
-<Columns cols={2}>
-  <Card
-    title="Prompt component"
-    icon="robot"
-    href="/agent-ready/prompt"
-  >
-    Embed shareable AI prompts readers can copy or open in Cursor.
-  </Card>
-  <Card
-    title="Visibility"
-    icon="eye"
-    href="/agent-ready/visibility"
-  >
-    Show different content to humans and agents reading your docs.
-  </Card>
-  <Card
-    title="Contextual menu"
-    icon="bolt"
-    href="/agent-ready/contextual"
-  >
-    Give readers one-click access to Claude, ChatGPT, Cursor, and more.
-  </Card>
-  <Card
-    title="AI coding tools"
-    icon="wand-magic-sparkles"
-    href="/ai-tools/claude-code"
-  >
-    Set up Claude Code, Cursor, or Windsurf with Mintlify's skill.
-  </Card>
-</Columns>
-
-## Need inspiration?
-
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+Start with the [Quickstart guide](/quickstart) for a walkthrough of your first day in the app. Or jump to [Key Concepts](/concepts) to understand the vocabulary the rest of the docs use.
