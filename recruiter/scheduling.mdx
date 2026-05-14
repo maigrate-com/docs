@@ -15,7 +15,7 @@ Scheduling can be triggered two ways:
 When triggered, the scheduling agent:
 1. Assigns a recruiter if one isn't already assigned
 2. Reads the recruiter's Google Calendar for the next 7 days
-3. Generates up to 4 available interview slots (30-minute blocks within business hours)
+3. Generates up to 3 available interview slots (30-minute blocks within business hours, skipping days already at their `max_interviews_per_day` cap)
 4. Creates a communication thread and queues the communication agent to send the first outreach
 
 ## The initial outreach

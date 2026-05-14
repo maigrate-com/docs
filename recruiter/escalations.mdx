@@ -13,15 +13,18 @@ Unresolved escalations appear in the **Command Center** and in the sidebar badge
 
 ## What creates an escalation
 
-| Cause | Example |
+Each escalation carries one of these reason codes:
+
+| Reason code | When it fires |
 |---|---|
-| Ambiguous candidate reply | Reply could mean "yes" or "call me back later" — agent can't tell |
-| Scheduling conflict | No recruiter availability in the next 7 days |
-| Repeat no-show | Candidate missed their second interview |
-| Weekend/after-hours request | Candidate only available on Saturday — policy requires human approval |
-| Document validation failure | Required credential couldn't be verified |
-| Delivery failure | Messages consistently bouncing or undeliverable |
-| Ambiguous screening | Agent couldn't determine fit with available evidence |
+| `unclear_candidate_reply` | The candidate's reply didn't match any known intent (e.g. could mean "yes" or "call me back later") |
+| `no_slots_found` | The scheduling agent couldn't find any available slots in the recruiter's calendar |
+| `question_requires_human` | The candidate asked something the agent isn't allowed to answer (compensation specifics, policy exceptions, etc.) |
+| `needs_human` | A catch-all for situations the agent identifies as out of scope — including weekend/after-hours requests where no operator guidance authorizes them |
+| `no_contact_method` | No usable phone or email on record — the candidate can't be reached |
+| `candidate_followup_while_needs_human` | The candidate sent a new message while the thread is already awaiting human review |
+| `candidate_repeat_no_show` | The candidate missed multiple interviews — the system recommends rejection, but the recruiter may still choose to reschedule |
+| `communication_delivery_failed` | Outbound message couldn't be delivered (e.g. bounce, opt-out without fallback channel) |
 
 ## Anatomy of an escalation
 
