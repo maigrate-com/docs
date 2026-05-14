@@ -61,15 +61,35 @@ Maigrate sends automatic reminders before confirmed interviews:
 | After 3 PM candidate-local | 3 PM the same day |
 | 11 AM–3 PM | No reminder sent |
 
-## No-shows and rescheduling
+## Recording the interview outcome
 
-After an interview is booked, the recruiter marks the outcome from the Command Center or Details tab.
+After every scheduled interview, the recruiter needs to record what happened. This is a required step — without it, the application sits in a stale state and downstream automation can't tell whether to follow up, reschedule, or move on.
 
-**Mark No-Show**: triggers the scheduling agent to reach out and reschedule. The candidate receives a new slot offer.
+<Frame>
+  <img src="/images/interview-resolution.png" alt="Application drawer showing the Interview Completed and No-Show action cards that appear after a scheduled interview time has passed" />
+</Frame>
 
-**Repeat no-show**: a second no-show creates an escalation in the Command Center with a reject recommendation. The recruiter decides whether to reject or give the candidate another chance.
+Once the scheduled interview time has passed, two action cards appear on the **Details** tab of the application drawer:
 
-**Mark Completed**: closes the scheduling workflow.
+- **Interview Completed** — click this when the interview happened. The application drops out of the default board view.
+- **No-Show** — click this if the candidate didn't attend. You can add an optional private note for the scheduling agent. The scheduling agent then reaches out to reschedule.
+
+### Standard operating procedure
+
+For every interview on your calendar, do **one** of the following the same day:
+
+1. **In Maigrate Hub** (recommended) — open the application drawer and click **Interview Completed** or **No-Show**. This is the cleanest path and gives the agent the most context.
+2. **In your ATS** — if you mark the outcome on the contact record in your ATS instead, that's fine — the data flows back to Maigrate and the application state is updated.
+
+Either path works. The important thing is that the outcome is recorded somewhere, every time. Letting interviews sit unresolved is the single most common cause of stalled pipelines.
+
+### What happens next
+
+**Interview Completed**: closes the scheduling workflow. The application is considered handed off to the rest of your hiring process.
+
+**No-Show**: triggers the scheduling agent to reach out and offer the candidate a new slot.
+
+**Repeat no-show**: a second no-show creates an escalation in the Command Center with a reject recommendation. You decide whether to reject or give the candidate another chance.
 
 ## Scheduling settings
 
