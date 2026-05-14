@@ -25,30 +25,38 @@ This is different from recruiter calendar configuration — guidance affects how
 | Rule | Default value |
 |---|---|
 | Slot duration | 30 minutes |
-| Initial slot count | 4 proposed slots |
+| Initial slot count | 3 proposed slots |
 | Search window | Next 7 days |
 | Recruiter business hours | 9 AM – 5 PM (recruiter's timezone) |
 | Weekend slots | Disabled by default |
 | After-hours slots | Disabled by default |
+| Max interviews per recruiter per day | Configurable per organization (no default cap) |
 
 Weekend and after-hours slot requests from candidates are escalated to a human rather than rejected outright — the recruiter decides whether to make an exception.
 
-## Follow-up timing
+## Follow-up timing (default policy)
 
-| Attempt | Default timing |
-|---|---|
-| 1st follow-up | 5 hours after initial outreach (or first available send window) |
-| 2nd follow-up | 1 day after previous attempt |
-| 3rd follow-up | 2 days after previous attempt |
-| Max attempts | 4 total (including initial outreach) |
+The default follow-up policy ships with 4 follow-up attempts (in addition to the initial outreach, so 5 total candidate touches):
 
-All follow-ups are sent within the candidate's local-time send window: **8 AM – 7 PM** on weekdays. Weekend sends are disabled unless configured.
+| Attempt | Default delay | Channel | Template |
+|---|---|---|---|
+| 1st follow-up | 5 hours after initial outreach | SMS | Direct CTA |
+| 2nd follow-up | 5 hours after attempt 1 | Email | Structured email |
+| 3rd follow-up | 1 business day after attempt 2 (morning) | SMS | Casual nudge |
+| 4th follow-up | 2 business days after attempt 3 | Email | Soft close (marks unresponsive after sending) |
 
-After the maximum attempts are exhausted, the thread is marked `unresponsive`. The application status becomes `Failed outreach` and is not automatically changed further.
+These defaults are encoded in a plain-language policy that's editable in the UI — the Preview Rules button compiles your edited policy into the executable schedule. The number of attempts, the delay between each, the channel, and the time-of-day preference (immediate vs morning) are all configurable. Defaults: send between **8 AM and 7 PM** candidate-local; weekends are skipped.
+
+After the maximum attempts are exhausted, the thread's follow-up state is marked `unresponsive`. The application's scheduling status moves to `failed_outreach`, which surfaces it in the Failed Outreach view on the Applicants board.
 
 ## Send window
 
-The candidate send window (8 AM – 9 PM local time for initial outreach; 8 AM – 7 PM for follow-ups) is enforced automatically. If a message would be sent outside the window, it's queued until the window opens.
+Two send windows apply:
+
+- **Outbound SMS** (any sender): 8 AM – 9 PM in the contact's local time. This is a global channel-routing rule that applies to every SMS we send, regardless of which agent or template.
+- **Follow-up sends specifically**: 8 AM – 7 PM in the candidate's local time, set by the follow-up policy.
+
+If a message would be sent outside the applicable window, it's queued until the window opens.
 
 ## Recruiter calendar configuration
 

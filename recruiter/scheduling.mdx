@@ -15,7 +15,7 @@ Scheduling can be triggered two ways:
 When triggered, the scheduling agent:
 1. Assigns a recruiter if one isn't already assigned
 2. Reads the recruiter's Google Calendar for the next 7 days
-3. Generates up to 4 available interview slots (30-minute blocks within business hours)
+3. Generates up to 3 available interview slots (30-minute blocks within business hours, skipping days already at their `max_interviews_per_day` cap)
 4. Creates a communication thread and queues the communication agent to send the first outreach
 
 ## The initial outreach
@@ -43,33 +43,63 @@ If a candidate doesn't respond, Maigrate follows up automatically based on the f
 
 All sends respect a quiet-hours window in the candidate's local timezone. After the maximum attempts are exhausted, the thread is marked `unresponsive` and status becomes `Failed outreach`.
 
-## Booking
+## Booking and confirmation
 
-The scheduling agent books the interview only after the candidate confirms a slot. Booking:
+The scheduling agent books the interview only after the candidate confirms a slot. When booking happens, the agent:
 - Creates or updates a Google Calendar event on the recruiter's calendar
 - Requests a Google Meet link automatically
-- Sends calendar invites to recruiter and candidate
+- Sends Google Calendar invites to the recruiter and the candidate
 - Records the interview in Maigrate
+- Replies to the candidate in the thread with a confirmation message using the **Interview Confirmation** template
+
+The confirmation message is sent as part of the same agent turn that persists the booking — it isn't a separately scheduled follow-up. Wording is configurable in [Settings → Communication](/settings/communication) under "Interview Confirmations".
 
 ## Interview reminders
 
-Maigrate sends automatic reminders before confirmed interviews:
+Maigrate sends a single SMS reminder on the day of a confirmed interview:
 
-| Interview time | When reminder sends |
+- **Target send time**: ~8 AM in the candidate's local timezone, on the interview day
+- **Channel**: SMS (via the configured Twilio number)
+- **Template**: the **Same-Day Reminder** template from [Settings → Communication](/settings/communication)
+
+The reminder is queued the morning of the interview and delivered as soon as the hourly send worker fires after 8 AM local. Two cases skip the reminder:
+
+| Case | What happens |
 |---|---|
-| Before 11 AM candidate-local | 3 PM the previous day |
-| After 3 PM candidate-local | 3 PM the same day |
-| 11 AM–3 PM | No reminder sent |
+| Interview is at or before 8 AM candidate-local | Skipped — no time to fit the reminder |
+| Delivery slips past 7 PM local or past the interview start time | Window missed — no reminder sent |
 
-## No-shows and rescheduling
+The 8 AM start and 7 PM cutoff are the global follow-up send-window bounds, configurable via `FOLLOW_UP_START_HOUR_LOCAL` and `FOLLOW_UP_END_HOUR_LOCAL`.
 
-After an interview is booked, the recruiter marks the outcome from the Command Center or Details tab.
+## Recording the interview outcome
 
-**Mark No-Show**: triggers the scheduling agent to reach out and reschedule. The candidate receives a new slot offer.
+After every scheduled interview, the recruiter needs to record what happened. This is a required step — without it, the application sits in a stale state and downstream automation can't tell whether to follow up, reschedule, or move on.
 
-**Repeat no-show**: a second no-show creates an escalation in the Command Center with a reject recommendation. The recruiter decides whether to reject or give the candidate another chance.
+<Frame>
+  <img src="/images/interview-resolution.png" alt="Application drawer showing the Interview Completed and No-Show action cards that appear after a scheduled interview time has passed" />
+</Frame>
 
-**Mark Completed**: closes the scheduling workflow.
+Once the scheduled interview time has passed, two action cards appear on the **Details** tab of the application drawer:
+
+- **Interview Completed** — click this when the interview happened. The application drops out of the default board view.
+- **No-Show** — click this if the candidate didn't attend. You can add an optional private note for the scheduling agent. The scheduling agent then reaches out to reschedule.
+
+### Standard operating procedure
+
+For every interview on your calendar, do **one** of the following the same day:
+
+1. **In Maigrate Hub** (recommended) — open the application drawer and click **Interview Completed** or **No-Show**. This is the cleanest path and gives the agent the most context.
+2. **In your ATS** — if you mark the outcome on the contact record in your ATS instead, that's fine — the data flows back to Maigrate and the application state is updated.
+
+Either path works. The important thing is that the outcome is recorded somewhere, every time. Letting interviews sit unresolved is the single most common cause of stalled pipelines.
+
+### What happens next
+
+**Interview Completed**: closes the scheduling workflow. The application is considered handed off to the rest of your hiring process.
+
+**No-Show**: triggers the scheduling agent to reach out and offer the candidate a new slot.
+
+**Repeat no-show**: a second no-show creates an escalation in the Command Center with a reject recommendation. You decide whether to reject or give the candidate another chance.
 
 ## Scheduling settings
 
