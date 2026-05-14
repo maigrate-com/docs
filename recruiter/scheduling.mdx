@@ -43,23 +43,33 @@ If a candidate doesn't respond, Maigrate follows up automatically based on the f
 
 All sends respect a quiet-hours window in the candidate's local timezone. After the maximum attempts are exhausted, the thread is marked `unresponsive` and status becomes `Failed outreach`.
 
-## Booking
+## Booking and confirmation
 
-The scheduling agent books the interview only after the candidate confirms a slot. Booking:
+The scheduling agent books the interview only after the candidate confirms a slot. When booking happens, the agent:
 - Creates or updates a Google Calendar event on the recruiter's calendar
 - Requests a Google Meet link automatically
-- Sends calendar invites to recruiter and candidate
+- Sends Google Calendar invites to the recruiter and the candidate
 - Records the interview in Maigrate
+- Replies to the candidate in the thread with a confirmation message using the **Interview Confirmation** template
+
+The confirmation message is sent as part of the same agent turn that persists the booking — it isn't a separately scheduled follow-up. Wording is configurable in [Settings → Communication](/settings/communication) under "Interview Confirmations".
 
 ## Interview reminders
 
-Maigrate sends automatic reminders before confirmed interviews:
+Maigrate sends a single SMS reminder on the day of a confirmed interview:
 
-| Interview time | When reminder sends |
+- **Target send time**: ~8 AM in the candidate's local timezone, on the interview day
+- **Channel**: SMS (via the configured Twilio number)
+- **Template**: the **Same-Day Reminder** template from [Settings → Communication](/settings/communication)
+
+The reminder is queued the morning of the interview and delivered as soon as the hourly send worker fires after 8 AM local. Two cases skip the reminder:
+
+| Case | What happens |
 |---|---|
-| Before 11 AM candidate-local | 3 PM the previous day |
-| After 3 PM candidate-local | 3 PM the same day |
-| 11 AM–3 PM | No reminder sent |
+| Interview is at or before 8 AM candidate-local | Skipped — no time to fit the reminder |
+| Delivery slips past 7 PM local or past the interview start time | Window missed — no reminder sent |
+
+The 8 AM start and 7 PM cutoff are the global follow-up send-window bounds, configurable via `FOLLOW_UP_START_HOUR_LOCAL` and `FOLLOW_UP_END_HOUR_LOCAL`.
 
 ## Recording the interview outcome
 
