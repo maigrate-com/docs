@@ -87,15 +87,19 @@ The Communication tab shows:
 ## Application status flow
 
 ```
-Not started
-  → Awaiting candidate response   (after initial outreach)
-  → Scheduled                     (after candidate confirms a slot)
-  → Completed                     (after recruiter marks interview done)
+Pending screening      (intake, before screening runs)
+  → Awaiting review    (screening agent returned `Review` — needs a recruiter)
+  → Pending scheduling (screening agent returned `Advance`, scheduling not yet triggered)
+  → Awaiting response  (initial outreach sent; waiting for candidate reply)
+  → Interview scheduled
+  → Interview passed   (scheduled time elapsed, outcome not yet recorded)
+  → Interview completed (recruiter clicks Interview Completed)
 
-  → No-show → reschedule → Scheduled
-  → Repeat no-show → Escalation + reject recommendation
+  → No-show → re-queues scheduling → Interview scheduled
+  → Repeat no-show → escalation with `candidate_repeat_no_show` (rejection recommended)
 
-  → Withdrew                      (candidate opts out)
-  → Failed outreach               (no response after max follow-ups)
-  → Rejected                      (screening reject, or recruiter override)
+  → Withdrew              (candidate opts out)
+  → Scheduling failed     (no reply after max follow-up attempts; underlying status `failed_outreach`)
+  → Rejected              (screening `Reject`, recruiter override, or `Withdrew` decision)
+  → Agent dismissed       (recruiter took over the thread manually)
 ```

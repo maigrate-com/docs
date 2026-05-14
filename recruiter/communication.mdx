@@ -24,7 +24,7 @@ Maigrate chooses the outreach channel automatically:
 | Invalid phone or landline | Email via Resend |
 | No phone on file | Email (or escalation if email is also missing) |
 
-Candidates can opt out of SMS. Opt-outs are stored and respected on all future sends — the agent switches to email for that candidate.
+Candidates can opt out of SMS (replying STOP). Opt-outs are stored and respected on all future sends — SMS is removed from the candidate's viable channel set, so the agent will pick the next-best channel (typically email, if there's a valid email on file). If neither channel is available, the thread escalates.
 
 ## Sending a direct message
 
@@ -49,19 +49,26 @@ The agent treats operator guidance as authoritative. Write guidance in the same 
 
 ## Dismissing the agent
 
-You can dismiss the communication agent from a thread if you want to take over manually. After dismissal, the thread becomes `human_owned` — no further automated messages will be sent.
+You can dismiss the communication agent from a thread if you want to take over manually. After dismissal, the thread is marked `human_owned` — no further automated messages will be sent. The **Dismiss Agent** button on the Details tab changes to a disabled **Agent Dismissed** indicator.
 
-To hand the thread back to the agent, use the **Resume automation** control.
+To hand the thread back to the agent, trigger a new scheduling flow (click **Schedule Interview** on the Details tab) — this re-opens a thread under agent control.
 
 ## Thread statuses
 
+The thread carries a status that drives what (if anything) the agent does next. The values you'll see:
+
 | Status | Meaning |
 |---|---|
-| `Active` | Agent is actively managing the conversation |
-| `Awaiting candidate response` | Outreach sent, waiting for reply |
-| `Human owned` | Recruiter dismissed the agent; no automation |
-| `Resolved` | Workflow completed (interview booked, candidate withdrew, etc.) |
-| `Unresponsive` | No reply after all follow-up attempts |
+| `active` | Agent is actively driving the conversation |
+| `waiting_on_external` | Outreach sent, waiting for a candidate reply |
+| `waiting_on_domain` | Waiting on another internal step (e.g. screening) before continuing |
+| `waiting_on_scheduling` | Waiting on the scheduling agent to act (e.g. propose slots, persist a booking) |
+| `escalated` | The agent has surfaced an escalation; further automation is paused |
+| `human_owned` | A recruiter dismissed the agent; no automated messages will be sent |
+| `completed` | Workflow finished (interview booked and confirmed, candidate withdrew, etc.) |
+| `cancelled` | Thread was cancelled |
+
+A separate follow-up state tracks responsiveness: a candidate who never replies after the configured follow-up attempts gets marked `unresponsive`, and the application's scheduling status moves to `failed_outreach`.
 
 ## Message templates
 

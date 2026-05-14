@@ -58,13 +58,14 @@ The ongoing conversation with a candidate. One thread per workflow interaction (
 A first-class record created when an agent needs a human to step in. Escalations surface in the Command Center and block further automation on the affected application until resolved.
 
 Common causes:
-- Ambiguous or concerning candidate reply
-- Scheduling conflicts that can't be resolved automatically
+- An unclear candidate reply the agent can't classify
+- No available interview slots in the recruiter's calendar
+- A question that's outside the agent's scope
 - Repeated no-shows
-- Document validation failures
-- Weekend/after-hours exception requests
+- No usable contact method (no phone, no email)
+- A candidate following up while the thread is already awaiting human review
 
-Each escalation includes the agent's explanation of what happened and recommendations for resolution.
+See [Escalations](/recruiter/escalations) for the full list of reason codes. Each escalation includes the agent's explanation of what happened and recommendations for resolution.
 
 ### Operator Guidance
 
