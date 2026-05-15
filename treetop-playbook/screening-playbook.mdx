@@ -1,0 +1,32 @@
+---
+title: "Reviewing a Screening Decision"
+description: "When to trust the agent's call, when to override, and when to change directives instead."
+---
+
+The screening agent makes a call on every application: advance, review, reject, or escalate. Most of the time it's right and you don't need to look. The cases that need you are surfaced as **Review** or as escalations in the [Command Center](/recruiter/command-center).
+
+## When to step in
+
+| Signal | What to do |
+|---|---|
+| Decision is `Review` | Open the [Screening](/recruiter/screening#viewing-a-screening-decision) tab. Read the rationale. Override to `Advance` or `Reject`, or accept the `Review` state and let the candidate sit. |
+| You disagree with an `Advance` or `Reject` | Override from the Screening tab. Enter a reason — it's stored in the audit log. |
+| Escalation `question_requires_human` (screening-related) | Read the agent's explanation, override the decision if needed, then mark resolved. |
+
+## When to update directives instead of overriding
+
+If you find yourself overriding the same kind of decision repeatedly — the agent keeps rejecting candidates you'd advance, or advancing candidates you'd reject — the fix is upstream.
+
+Per-application overrides are tactical: they fix this one case. Editing your [screening directives](/settings/screening) changes the agent's behavior across the whole pipeline going forward. Two or three repeat overrides is your signal that the directives need an edit.
+
+## What the agent uses to decide
+
+The screening agent reads:
+- The job description and structured ATS job details.
+- Your organization's [screening directives](/settings/screening).
+- The candidate's application answers and resume.
+- Baseline rules that bias the agent toward `Review` or escalation when evidence is ambiguous — it will not invent facts to fill a gap.
+
+If the rationale shows the agent is **missing context** the org should know (e.g. "no mention of certification X"), that's another directive-update signal — not an override signal.
+
+For the full mechanics of overriding, see [Screening](/recruiter/screening).

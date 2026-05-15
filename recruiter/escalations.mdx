@@ -26,6 +26,21 @@ Each escalation carries one of these reason codes:
 | `candidate_repeat_no_show` | The candidate missed multiple interviews — the system recommends rejection, but the recruiter may still choose to reschedule |
 | `communication_delivery_failed` | Outbound message couldn't be delivered (e.g. bounce, opt-out without fallback channel) |
 
+## How to resolve, by reason
+
+Each reason code maps to a concrete next step:
+
+| Reason code | Where to act | What to do |
+|---|---|---|
+| `unclear_candidate_reply` | [Communication](/recruiter/communication) tab | Read the new message, then either send [operator guidance](/recruiter/communication#operator-guidance) or message the candidate directly. Resolve the escalation. |
+| `no_slots_found` | [Settings → Recruiters](/settings/recruiters) and Google Calendar | Fix the conflict in Google Calendar or adjust recruiter availability, then re-trigger scheduling from the Details tab. |
+| `question_requires_human` | [Communication](/recruiter/communication) tab | Send operator guidance authorizing the answer, or take over the thread and message directly. |
+| `needs_human` | [Communication](/recruiter/communication) tab | Common case: weekend / after-hours requests. If you'll honor it, send operator guidance permitting the off-hours slot. If not, message a daytime alternative. |
+| `no_contact_method` | Details tab | Update the candidate's phone or email, then re-trigger outreach. |
+| `candidate_followup_while_needs_human` | [Communication](/recruiter/communication) tab | Read the new message in light of the existing escalation. Guide the agent or take over. |
+| `candidate_repeat_no_show` | Details tab | Default recommendation is reject. Override the recommendation and provide guidance if you disagree. |
+| `communication_delivery_failed` | Details tab | Confirm contact info is correct (and not opted out), then re-trigger outreach. |
+
 ## Anatomy of an escalation
 
 Each escalation record includes:

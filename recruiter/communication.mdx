@@ -5,6 +5,17 @@ description: "How Maigrate manages candidate conversations — channels, threads
 
 All candidate communication in Maigrate flows through **threads** — structured conversations that the communication agent manages. Recruiters can view every message, send direct messages, and give the agent private guidance.
 
+## Two actions — don't confuse them
+
+There are two ways a recruiter can intervene in a thread, and they do very different things:
+
+| Action | Who sees it | What it does |
+|---|---|---|
+| **Direct message** | Candidate | Sent to the candidate over SMS or email. The agent sees that you sent it and adapts. |
+| **Operator guidance** | Agent only | Private note. The agent treats it as authoritative on the next turn. The candidate never sees it. |
+
+Pick the wrong one and either the candidate gets a message meant for the agent, or your guidance ends up in someone's inbox. The Communication tab keeps these in separate inputs — confirm the selector before sending.
+
 ## Viewing a thread
 
 Open any application and click the **Communication** tab. The thread view shows:
@@ -52,6 +63,10 @@ The agent treats operator guidance as authoritative. Write guidance in the same 
 You can dismiss the communication agent from a thread if you want to take over manually. After dismissal, the thread is marked `human_owned` — no further automated messages will be sent. The **Dismiss Agent** button on the Details tab changes to a disabled **Agent Dismissed** indicator.
 
 To hand the thread back to the agent, trigger a new scheduling flow (click **Schedule Interview** on the Details tab) — this re-opens a thread under agent control.
+
+<Note>
+  **When to dismiss vs guide.** Dismiss when the situation is sensitive, off-script, or needs extended back-and-forth the agent shouldn't be in (complex compensation, candidate complaints). Guide when the agent is mostly right but needs one constraint or fact ("Don't propose Friday slots, this recruiter is OOO"; "Confirm the rate of $X if asked").
+</Note>
 
 ## Thread statuses
 

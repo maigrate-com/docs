@@ -18,6 +18,21 @@ When triggered, the scheduling agent:
 3. Generates up to 3 available interview slots (30-minute blocks within business hours, skipping days already at their `max_interviews_per_day` cap)
 4. Creates a communication thread and queues the communication agent to send the first outreach
 
+## Timing rules
+
+The scheduling agent operates inside fixed windows, all evaluated in the candidate's local timezone:
+
+| Rule | Default |
+|---|---|
+| SMS delivery window | 8 AM – 9 PM candidate-local |
+| Follow-up send window | 8 AM – 7 PM candidate-local |
+| Follow-ups on weekends | Disabled unless configured |
+| Initial slot search window | Next 7 days |
+| Slot count and duration | Up to 3 slots, 30 minutes each |
+| Weekend / evening exception requests | Always escalated to a recruiter |
+
+If a candidate asks for a slot outside business hours, the agent will not unilaterally accept or decline — it escalates and waits for [operator guidance](/recruiter/communication#operator-guidance). See [Follow-up policy](/recruiter/follow-up-policy) for the full cadence.
+
 ## The initial outreach
 
 The first message to the candidate proposes the available slots (or a booking link, if one is configured). The message is sent via SMS if the candidate has a valid mobile number, or email if not.
@@ -53,6 +68,10 @@ The scheduling agent books the interview only after the candidate confirms a slo
 - Replies to the candidate in the thread with a confirmation message using the **Interview Confirmation** template
 
 The confirmation message is sent as part of the same agent turn that persists the booking — it isn't a separately scheduled follow-up. Wording is configurable in [Settings → Communication](/settings/communication) under "Interview Confirmations".
+
+<Note>
+  **Don't fight the calendar.** Google Calendar is the booking source of truth. If a candidate claims they already booked or interviewed, the agent reconciles by exact attendee-email match. Manual edits that contradict the calendar will lose to the calendar.
+</Note>
 
 ## Interview reminders
 

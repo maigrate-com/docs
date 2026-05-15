@@ -40,7 +40,36 @@
               "recruiter/screening",
               "recruiter/scheduling",
               "recruiter/communication",
-              "recruiter/escalations"
+              "recruiter/escalations",
+              "recruiter/follow-up-policy"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Treetop Playbook",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "treetop-playbook/index"
+            ]
+          },
+          {
+            "group": "Playbooks",
+            "pages": [
+              "treetop-playbook/daily-shift",
+              "treetop-playbook/screening-playbook",
+              "treetop-playbook/scheduling-playbook",
+              "treetop-playbook/communication-playbook",
+              "treetop-playbook/escalations-playbook",
+              "treetop-playbook/templates-and-knowledge"
+            ]
+          },
+          {
+            "group": "Quick reference",
+            "pages": [
+              "treetop-playbook/when-to-step-in"
             ]
           }
         ]
