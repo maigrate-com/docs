@@ -47,29 +47,29 @@
         ]
       },
       {
-        "tab": "Day-to-Day",
+        "tab": "Treetop Playbook",
         "groups": [
           {
             "group": "Overview",
             "pages": [
-              "day-to-day/index"
+              "treetop-playbook/index"
             ]
           },
           {
             "group": "Playbooks",
             "pages": [
-              "day-to-day/daily-shift",
-              "day-to-day/screening-playbook",
-              "day-to-day/scheduling-playbook",
-              "day-to-day/communication-playbook",
-              "day-to-day/escalations-playbook",
-              "day-to-day/templates-and-knowledge"
+              "treetop-playbook/daily-shift",
+              "treetop-playbook/screening-playbook",
+              "treetop-playbook/scheduling-playbook",
+              "treetop-playbook/communication-playbook",
+              "treetop-playbook/escalations-playbook",
+              "treetop-playbook/templates-and-knowledge"
             ]
           },
           {
             "group": "Quick reference",
             "pages": [
-              "day-to-day/when-to-step-in"
+              "treetop-playbook/when-to-step-in"
             ]
           }
         ]
