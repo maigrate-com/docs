@@ -17,6 +17,21 @@ Maigrate Hub integrates with Salesforce in two directions: reading candidate dat
 
 **Message mirroring**: Every candidate-facing message is recorded on the Salesforce Contact as a `Task` activity.
 
+## Writeback events
+
+The recruiting pipeline writes back to the Contact record at specific points. Salesforce stays the source of truth for the candidate identity; Maigrate is the source of truth for the pipeline state and decision rationale.
+
+| Event | `lmry__Onboarding_Step__c` | `Status_custom__c` | Other |
+|---|---|---|---|
+| Candidate advanced | `Candidate Found` | `Interested – Not Scheduled` | — |
+| Interview scheduled | `Interview` | `Interview Scheduled` | `Interview_Scheduled_Date__c` populated |
+| No-show, pending reschedule | `Interview` | `Interview Disrupted` | `Step_Reason__c`: `Pending Reschedule` |
+| Rejected / disqualified | `Inactive` | `Candidate: Rejected/Disqualified` | Note created if rationale present |
+| Candidate withdrew | `Inactive` | `Candidate: No Longer Interested` | Note created if rationale present |
+| Candidate-facing message sent | (no change) | (no change) | Logged as a Salesforce `Task` on the Contact |
+
+Every candidate-facing message — recruiter or agent, SMS or email — is mirrored as a Salesforce Task. This means recruiters and care managers who view the Contact in Salesforce can see the full conversation history without needing to open Maigrate.
+
 ## Required Salesforce fields
 
 The integration reads and writes specific fields on the `Contact` object. Make sure they exist in your org before connecting.

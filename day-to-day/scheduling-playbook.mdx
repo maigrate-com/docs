@@ -1,0 +1,41 @@
+---
+title: "Working a Scheduling Case"
+description: "What scheduling does without you, when to trigger manually, and how to handle reschedules and no-shows."
+---
+
+For most candidates you'll never touch scheduling — it runs end-to-end. The cases that need you are the ones it can't finish alone: weekend exception requests, calendar conflicts, repeat no-shows.
+
+## What scheduling does on its own
+
+When a candidate is advanced, scheduling kicks off automatically (if auto-schedule is enabled). The scheduling agent:
+
+- Assigns a recruiter if one isn't set.
+- Reads the recruiter's Google Calendar for the next 7 days against the recruiter's business hours.
+- Proposes up to 3 thirty-minute slots.
+- Sends initial outreach via SMS (or email if SMS isn't viable).
+- Books the slot in Google Calendar with a Google Meet link before confirming to the candidate.
+
+For the timing rules and channel routing, see [Scheduling → Timing rules](/recruiter/scheduling#timing-rules).
+
+## When to trigger manually
+
+You only need to trigger scheduling by hand in a few cases:
+
+- The candidate was set to `Review` and you've decided to advance them.
+- Scheduling never started because of a precondition issue (no recruiter, no contact method) that you've since fixed.
+- You want to re-attempt after resolving an escalation.
+
+Open the application's **Details** tab and click **Schedule Interview**. This queues the scheduling agent regardless of the screening decision.
+
+## No-shows and reschedules
+
+After an interview's scheduled time has passed, mark the outcome on the Details tab — **Interview Completed** or **No-Show**. This is the single most important habit in scheduling: an interview left unresolved stalls the application.
+
+- **First no-show** — the scheduling agent automatically reaches out to reschedule.
+- **Repeat no-show** — an escalation is created with a default reject recommendation. You decide whether to give the candidate another chance or accept the reject.
+
+## Don't fight the calendar
+
+Google Calendar is the booking source of truth. If a candidate claims they already booked or interviewed, the agent reconciles by exact attendee-email match. If you manually move a calendar event, the agent will defer to whatever the calendar now says — not to your edit in Maigrate Hub. Make calendar changes in Google Calendar, not in Maigrate.
+
+For the full reschedule and reminder behavior, see [Scheduling](/recruiter/scheduling) and [Follow-up policy](/recruiter/follow-up-policy).

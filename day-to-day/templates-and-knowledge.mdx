@@ -1,0 +1,36 @@
+---
+title: "Editing Templates and Knowledge"
+description: "When to change what the agents say to candidates, and what facts are safe to give them."
+---
+
+Two settings change agent output across every candidate going forward:
+
+1. **Communication templates** — the wording of automated messages.
+2. **Organization knowledge** — the public company / careers context the agents may reference.
+
+Both apply to **future** messages, immediately. Past messages are unchanged.
+
+## When to edit a template
+
+| Family | Edit when |
+|---|---|
+| Initial Outreach | The first message to a candidate isn't getting enough engagement, or doesn't match your brand voice. |
+| Follow-Up Nudges | Candidates aren't responding and your follow-ups feel generic — or they're too pushy. |
+| Interview Confirmations | The post-booking confirmation is missing useful information (joining instructions, contact info). |
+| Same-Day Reminders | The reminder text doesn't match your brand or is missing a piece of info. |
+
+Edit in [Settings → Communication](/settings/communication). Keep variables intact — `{candidate_name}`, `{slot_times}`, `{recruiter_name}` — or messages will go out with literal placeholders.
+
+The agent uses templates as a starting point and may adapt to context. Templates that are too rigid become awkward when the candidate asks a question or shifts the conversation. Aim for templates the agent can naturally extend.
+
+## When to edit organization knowledge
+
+[Settings → Knowledge Base](/settings/knowledge-base) is where you store public, candidate-safe facts about your company: how the role works, where you operate, what benefits look like, links to careers FAQ. The agents may reference this to answer candidate questions.
+
+The agents are **explicitly instructed not to invent missing facts.** If the candidate asks something not in the knowledge base, the agent escalates instead of guessing. So:
+
+- **Add what you'd be comfortable seeing quoted to a candidate verbatim.** That's the test.
+- **Don't add confidential or candidate-sensitive info.** This includes compensation specifics by role, hiring volume, internal team org charts.
+- **If escalations keep firing on the same question**, that question's answer probably belongs in the knowledge base.
+
+For the underlying mechanics, see [Settings → Communication](/settings/communication) and [Settings → Knowledge Base](/settings/knowledge-base).

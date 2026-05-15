@@ -40,7 +40,36 @@
               "recruiter/screening",
               "recruiter/scheduling",
               "recruiter/communication",
-              "recruiter/escalations"
+              "recruiter/escalations",
+              "recruiter/follow-up-policy"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Day-to-Day",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "day-to-day/index"
+            ]
+          },
+          {
+            "group": "Playbooks",
+            "pages": [
+              "day-to-day/daily-shift",
+              "day-to-day/screening-playbook",
+              "day-to-day/scheduling-playbook",
+              "day-to-day/communication-playbook",
+              "day-to-day/escalations-playbook",
+              "day-to-day/templates-and-knowledge"
+            ]
+          },
+          {
+            "group": "Quick reference",
+            "pages": [
+              "day-to-day/when-to-step-in"
             ]
           }
         ]
