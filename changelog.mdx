@@ -1,0 +1,25 @@
+---
+title: "Changelog"
+description: "Product updates and improvements to Maigrate AI Hub."
+---
+
+## Week of May 18, 2026
+
+### New features
+
+- **Candidates can update their contact info by reply.** If a candidate writes back asking you to use a different email or phone number, the agent now recognizes the request and updates their contact details automatically — no recruiter intervention needed. See [Communication](/recruiter/communication).
+- **Natural-language no-show handling.** Recruiters can now tell the agent a candidate didn't show up in plain English (for example, "She no-showed her interview") and the no-show workflow will trigger — you no longer have to click the no-show button. See [Escalations](/recruiter/escalations).
+- **App-level permissions with admin and user roles.** Tenant sign-in is now restricted to users explicitly assigned to the app, and each user is given either an `admin` or `user` role enforced across the backend and UI. See [Recruiter settings](/settings/recruiters).
+- **Download documents from the document center.** You can now download any candidate document directly from the document center, alongside the existing delete action. Click a thumbnail to open a larger preview. See [Document review](/settings/document-review).
+
+### Updates
+
+- **Application link in Google Calendar invites.** Interview invites now include a direct link to the candidate's application in Maigrate, so interviewers can jump straight to context from the calendar event. See [Scheduling](/recruiter/scheduling).
+- **Per-tenant Twilio configuration.** Twilio account SID, auth token, and sending number are now configured per tenant instead of shared globally, so each org can use its own number for SMS outreach. See [Twilio integration](/integrations/twilio).
+
+### Bug fixes
+
+- **Same-day interview reminders.** Fixed a regression where AM interview reminders occasionally didn't send during the morning reminder window. Reminders now go out reliably.
+- **Legitimate SMS replies no longer blocked as duplicates.** Fixed an issue where a real candidate reply during active scheduling outreach could be incorrectly skipped by the duplicate-send guard.
+- **Stale calendar events on candidate withdrawal.** When a candidate withdraws, calendar event cancellation failures are now retried and surfaced instead of being silently swallowed, so interviews don't get left on recruiter calendars.
+- **Long emails no longer fail to store.** Very large email threads that previously hit storage limits are now handled correctly and remain fully visible in the candidate's communication history.
