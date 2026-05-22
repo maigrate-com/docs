@@ -104,6 +104,17 @@
         ]
       },
       {
+        "tab": "Changelog",
+        "groups": [
+          {
+            "group": "Changelog",
+            "pages": [
+              "changelog"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Integrations",
         "groups": [
           {
