@@ -32,6 +32,52 @@ Each recruiter needs a connected Google Calendar for the scheduling agent to rea
 
 For this to work, your Google Workspace administrator must complete the domain-wide delegation setup. See [Google Workspace Integration](/integrations/google-workspace).
 
+## Setting business hours and availability
+
+Business hours tell the scheduling agent **which times of day it's allowed to offer** for a recruiter's interviews. You can set one default window for the whole week, then override or close individual days.
+
+To edit a recruiter's hours:
+
+<Steps>
+  <Step title="Open the recruiter's editor">
+    Go to **Settings → Recruiters**, find the recruiter in the list, and click **Edit** under **Actions**. The **Edit Recruiter** panel opens on the right.
+  </Step>
+  <Step title="Confirm the timezone">
+    Check the **Timezone** field (for example, `America/New_York`). All the hours below are interpreted in this timezone, so slot times come out correct for the recruiter.
+  </Step>
+  <Step title="Set the default business hours">
+    Use **Business Hours Start** and **Business Hours End** to set the window that applies every day by default (for example, `09:00 AM` to `05:00 PM`). Click the time field to type or pick a time.
+  </Step>
+  <Step title="Override specific days (optional)">
+    Expand **Day-specific business hours** to fine-tune individual days. See the table below for what each control does.
+  </Step>
+  <Step title="Save">
+    Click **Update** to save. The scheduling agent uses the new hours the next time it looks for slots.
+  </Step>
+</Steps>
+
+### Day-specific business hours
+
+Expanding **Day-specific business hours** shows a row for each day of the week, each with its own controls:
+
+| Control | What it does |
+|---|---|
+| **Start** | The earliest time the agent will offer on that day. Setting it overrides the default Business Hours Start, just for that day. |
+| **End** | The latest time the agent will offer on that day. Setting it overrides the default Business Hours End, just for that day. |
+| **Off** | Closes that day entirely. When **Off** is checked, the agent offers **no** interview slots on that weekday and the Start/End fields are disabled. |
+
+Common examples:
+
+- **A recruiter who finishes early on Fridays** — leave the default at 9–5, then set **Friday** End to `12:00 PM`.
+- **A recruiter who doesn't work Mondays** — check **Off** on **Monday**.
+- **Different hours midweek** — set **Wednesday** Start to `10:30 AM` and End to `07:00 PM`.
+
+Any day you don't change keeps the default Business Hours window.
+
+<Note>
+  Business hours and Google Calendar work together. Business hours set the *outer window* the agent is allowed to offer; the recruiter's Google Calendar busy blocks then remove any times that are already booked. A day marked **Off** is closed regardless of what the calendar shows.
+</Note>
+
 ## Viewing calendar availability
 
 Click on a recruiter's name, then **View Calendar**. The calendar page shows their free/busy blocks for the upcoming days — the same view the scheduling agent uses when generating interview slots.
