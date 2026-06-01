@@ -101,6 +101,15 @@
               "settings/recruiters",
               "settings/branding"
             ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/salesforce",
+              "integrations/google-workspace",
+              "integrations/twilio",
+              "integrations/email"
+            ]
           }
         ]
       },
@@ -111,20 +120,6 @@
             "group": "Changelog",
             "pages": [
               "changelog"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Integrations",
-        "groups": [
-          {
-            "group": "Setup Guides",
-            "pages": [
-              "integrations/salesforce",
-              "integrations/google-workspace",
-              "integrations/twilio",
-              "integrations/email"
             ]
           }
         ]
