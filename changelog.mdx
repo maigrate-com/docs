@@ -7,7 +7,7 @@ description: "Product updates and improvements to Maigrate AI Hub."
 
 ### New features
 
-- **Calendly scheduling, end to end.** You can now connect Calendly in Settings — including webhook setup and a live connection status — and copy an assigned recruiter's Calendly booking link straight from the application drawer. Once connected, Maigrate automatically processes Calendly booked, canceled, and rescheduled events and keeps the interview state in sync. Duplicate Calendly bookings no longer silently overwrite an active interview; ambiguous cases are routed for follow-up. See [Scheduling](/recruiter/scheduling).
+- **Calendly scheduling, end to end.** You can now connect Calendly in Settings — with a guided setup and a live connection status — and copy an assigned recruiter's Calendly booking link straight from the application drawer. Once connected, Maigrate automatically picks up Calendly bookings, cancellations, and reschedules and keeps each interview's status in sync. Duplicate Calendly bookings no longer silently overwrite an active interview; anything ambiguous is routed for a person to review. See [Scheduling](/recruiter/scheduling).
 - **Cancel an interview and see full interview history from the drawer.** You can now cancel a scheduled interview directly from the application drawer, and view every interview record for an application — the active one alongside canceled and rescheduled history. See [Scheduling](/recruiter/scheduling).
 
 ### Updates
@@ -15,15 +15,15 @@ description: "Product updates and improvements to Maigrate AI Hub."
 - **Mark a no-show for interviews that already passed.** You can now record a no-show from the application drawer for an interview whose scheduled time has already gone by. See [Scheduling](/recruiter/scheduling).
 - **Cancel even when there's no open slot.** If a recruiter's calendar is full, the agent can now cancel a candidate's existing interview without an immediate replacement and keep the candidate in active scheduling, so it continues working to find a new time.
 - **Reminders stop for canceled interviews.** Interview reminder and confirmation follow-ups now stop automatically when the related interview is canceled.
-- **Org-scoped data access.** Every application read and write is now scoped to your organization, an added safeguard on tenant data isolation.
+- **Stronger separation between organizations.** Every application is now tied to your organization, adding another safeguard that keeps each customer's data fully separate.
 
 ### Bug fixes
 
 - **No-shows now show as "Interview Disrupted" in your ATS.** Fixed a case where a no-show didn't roll up to the correct "Interview Disrupted" status in Lumary/Salesforce. See [Salesforce integration](/integrations/salesforce).
-- **More reliable ATS status updates.** Restored a Salesforce/Lumary status writeback regression, and concurrent status changes for the same candidate no longer overwrite each other.
+- **More reliable ATS status updates.** Status changes now write back to Salesforce/Lumary reliably again, and two updates for the same candidate at the same time no longer overwrite each other.
 - **No more duplicate interview invites.** The agent no longer sends duplicate calendar invites for the same interview.
-- **Document uploads are idempotent.** Re-processing the same document no longer creates duplicate records.
-- **Saving settings no longer overwrites other fields.** Fixed a case where saving the completion setting could overwrite the recruiter's saved search configuration.
+- **No more duplicate documents.** Re-uploading or re-processing the same document no longer creates a duplicate record.
+- **Saving one setting no longer affects others.** Fixed a case where saving a screening setting could overwrite a recruiter's saved search configuration.
 
 ## Week of May 25, 2026
 
