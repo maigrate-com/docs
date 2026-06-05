@@ -56,7 +56,7 @@ The communication agent handles inbound replies:
 
 If a candidate doesn't respond, Maigrate follows up automatically based on the follow-up policy configured in [Settings → Scheduling](/settings/scheduling) and [Settings → Communication](/settings/communication). The timing, number of attempts, and which channel each follow-up uses are all configurable.
 
-All sends respect a quiet-hours window in the candidate's local timezone. After the maximum attempts are exhausted, the thread is marked `unresponsive` and status becomes `Failed outreach`.
+All sends respect a quiet-hours window in the candidate's local timezone. After the maximum attempts are exhausted, the thread is marked `unresponsive`, the application moves to `closed_unresponsive`, and the contact is written back to Lumary as `Inactive`. See [Salesforce Integration → Writeback events](/integrations/salesforce#writeback-events).
 
 ## Booking and confirmation
 
@@ -75,20 +75,12 @@ The confirmation message is sent as part of the same agent turn that persists th
 
 ## Interview reminders
 
-Maigrate sends a single SMS reminder on the day of a confirmed interview:
+Maigrate sends up to **two** reminders for a confirmed interview, each on SMS and email (SMS preferred), in the candidate's local timezone:
 
-- **Target send time**: ~8 AM in the candidate's local timezone, on the interview day
-- **Channel**: SMS (via the configured Twilio number)
-- **Template**: the **Same-Day Reminder** template from [Settings → Communication](/settings/communication)
+- **Morning-of** — ~8 AM on the interview day. For interviews **before 10 AM local**, this reminder is sent at **3 PM the day before** instead (there's no room for an 8 AM send).
+- **One hour prior** — ~1 hour before the interview start time.
 
-The reminder is queued the morning of the interview and delivered as soon as the hourly send worker fires after 8 AM local. Two cases skip the reminder:
-
-| Case | What happens |
-|---|---|
-| Interview is at or before 8 AM candidate-local | Skipped — no time to fit the reminder |
-| Delivery slips past 7 PM local or past the interview start time | Window missed — no reminder sent |
-
-The 8 AM start and 7 PM cutoff are the global follow-up send-window bounds, configurable via `FOLLOW_UP_START_HOUR_LOCAL` and `FOLLOW_UP_END_HOUR_LOCAL`.
+Each stage is skipped if its computed send time has already passed when the hourly send worker evaluates it (e.g., the interview is too close, or already in the past). The reminder wording lives in the **Interview Reminder** template in [Settings → Communication](/settings/communication). The 8 AM target shares the global `FOLLOW_UP_START_HOUR_LOCAL` follow-up bound.
 
 ## Recording the interview outcome
 
@@ -116,9 +108,13 @@ Either path works. The important thing is that the outcome is recorded somewhere
 
 **Interview Completed**: closes the scheduling workflow. The application is considered handed off to the rest of your hiring process.
 
-**No-Show**: triggers the scheduling agent to reach out and offer the candidate a new slot.
+**No-Show**: writes `Interview Disrupted` (with step reason `Pending Reschedule`) back to the Salesforce/Lumary contact, then triggers the scheduling agent to reach out and offer a new slot using the standard follow-up cadence. See [Salesforce Integration → Writeback events](/integrations/salesforce#writeback-events).
 
-**Repeat no-show**: a second no-show creates an escalation in the Command Center with a reject recommendation. You decide whether to reject or give the candidate another chance.
+**Repeat no-show**: a second no-show creates an escalation in the Command Center with a reject recommendation and **stops** the automatic re-outreach. You decide whether to reject or give the candidate another chance.
+
+<Note>
+  If re-outreach after a no-show is exhausted without a reply, the application moves to `closed_unresponsive` and the contact is written back to Lumary as `Inactive` — the same path as any unresponsive candidate. See [Follow-up policy → After the last attempt](/recruiter/follow-up-policy#after-the-last-attempt), including the coming-soon note on the disposition label.
+</Note>
 
 ## Scheduling settings
 

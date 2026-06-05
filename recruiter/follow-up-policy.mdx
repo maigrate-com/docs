@@ -20,7 +20,11 @@ The built-in follow-up policy fires up to four attempts, alternating SMS and ema
 
 ### After the last attempt
 
-After attempt 4 completes without a reply, the thread is marked `unresponsive` with reason `max_attempts_reached`. The application's scheduling status moves to `failed_outreach`. The follow-up policy itself does **not** move the candidate to inactive in Salesforce — that requires a screening decision or a recruiter action. See [Salesforce Integration → Writeback events](/integrations/salesforce#writeback-events).
+After attempt 4 completes without a reply, the thread is marked `unresponsive` with reason `max_attempts_reached`, and the application moves to `closed_unresponsive`. This **does** write back to Salesforce/Lumary: the contact's `lmry__Onboarding_Step__c` flips to `Inactive`. See [Salesforce Integration → Writeback events](/integrations/salesforce#writeback-events).
+
+<Warning>
+  **Coming soon — correct disposition for unresponsive candidates.** Today the unresponsive writeback marks the Lumary contact as `Candidate: Rejected/Disqualified` with reason `Inadequate/No Experience`, which mislabels someone who simply never replied. The intended behavior is `Candidate: Withdrew/Unresponsive`. Tracked in [MAI-413](https://linear.app/maigrate/issue/MAI-413) / [MAI-415](https://linear.app/maigrate/issue/MAI-415). The free-text note on the contact already reads "candidate unresponsive after follow-up policy exhausted."
+</Warning>
 
 ### Channel rules
 
@@ -33,31 +37,27 @@ After attempt 4 completes without a reply, the thread is marked `unresponsive` w
 
 You can edit the cadence, send window, and channel preferences in [Settings → Communication](/settings/communication).
 
-## Same-day interview reminder
+## Interview reminders
 
-Once an interview is booked, Maigrate schedules a single SMS reminder for the morning of the interview.
+Once an interview is booked, Maigrate sends up to **two** reminders, each delivered on SMS and email (SMS preferred). All times are in the candidate's local timezone.
 
-| Behavior | Detail |
+| Stage | Target send time |
 |---|---|
-| Target send time | 8 AM in the candidate's local timezone, on the interview day |
-| Channel | SMS via the configured Twilio number |
-| Template | **Same-Day Reminder** in [Settings → Communication](/settings/communication) |
+| Morning-of | 8 AM on the interview day — **except** for interviews before 10 AM local, where it goes out at **3 PM the day before** |
+| One hour prior | ~1 hour before the interview start time |
 
-### When the reminder is skipped
+The 10 AM cutoff for the morning-of reminder and the 3 PM day-before fallback are fixed; the 8 AM target shares the `FOLLOW_UP_START_HOUR_LOCAL` bound used by the rest of the follow-up policy. The reminder template is **Interview Reminder** in [Settings → Communication](/settings/communication).
 
-| Case | Why |
-|---|---|
-| Interview is at or before 8 AM candidate-local | No time to fit the reminder before the interview |
-| Reminder delivery slips past 7 PM local or past the interview start time | Send window closed |
+### When a reminder is skipped
 
-The 8 AM start and 7 PM cutoff are the same `FOLLOW_UP_START_HOUR_LOCAL` and `FOLLOW_UP_END_HOUR_LOCAL` that bound all follow-ups.
+A reminder stage is skipped when its computed send time has already passed by the time the send worker evaluates it — for example, if the interview is so close that the one-hour-prior (or morning-of) window has already closed, or the interview itself is already in the past.
 
 <Note>
-  The reminder is queued once the morning of the interview and delivered as soon as the hourly send worker fires after 8 AM local. It is not a configurable separate schedule — it lives inside the same send-window machinery as the rest of the follow-up policy.
+  Reminders aren't a separate schedule — they live inside the same send-window machinery as the rest of the follow-up policy and are delivered as the hourly send worker fires.
 </Note>
 
 ## What recruiters see
 
 A thread that looks quiet is usually just waiting for the next attempt to fall inside the send window. Open the [Communication](/recruiter/communication) tab to see the full message history, the agent's reasoning between sends, and the current thread status.
 
-If the candidate is `unresponsive`, the application surfaces in the Applicants board with scheduling status `failed_outreach`. A recruiter can take over the thread, escalate to another channel manually, or reject the application — see [Communication → Dismissing the agent](/recruiter/communication#dismissing-the-agent).
+If the candidate is `unresponsive`, the application surfaces in the Applicants board as `closed_unresponsive`. A recruiter can still take over the thread, escalate to another channel manually, or reject the application — see [Communication → Dismissing the agent](/recruiter/communication#dismissing-the-agent).

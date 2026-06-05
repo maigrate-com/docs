@@ -23,12 +23,22 @@ The recruiting pipeline writes back to the Contact record at specific points. Sa
 
 | Event | `lmry__Onboarding_Step__c` | `Status_custom__c` | Other |
 |---|---|---|---|
-| Candidate advanced | `Candidate Found` | `Interested – Not Scheduled` | — |
-| Interview scheduled | `Interview` | `Interview Scheduled` | `Interview_Scheduled_Date__c` populated |
+| Candidate advanced | `Candidate Found` | `Interested - Not Scheduled` | `Step_Reason__c` cleared |
+| Candidate contacted | (no change) | `Contacted` | — |
+| Interview scheduled | `Interview` | `Interview Scheduled` | `Interview_Scheduled_Date__c` populated; `Step_Reason__c`: `Nth Reschedule` on a reschedule |
 | No-show, pending reschedule | `Interview` | `Interview Disrupted` | `Step_Reason__c`: `Pending Reschedule` |
-| Rejected / disqualified | `Inactive` | `Candidate: Rejected/Disqualified` | Note created if rationale present |
-| Candidate withdrew | `Inactive` | `Candidate: No Longer Interested` | Note created if rationale present |
+| Rejected / disqualified | `Inactive` | `Candidate: Rejected/Disqualified` | `Step_Reason__c`: reason code; note created if rationale present |
+| Candidate withdrew | `Inactive` | `Candidate: Withdrew/Unresponsive` | `Step_Reason__c`: `No Longer Interested`; note created if rationale present |
+| Unresponsive (follow-ups exhausted) | `Inactive` | `Candidate: Rejected/Disqualified` ⚠️ | `Step_Reason__c`: `Inadequate/No Experience`; note reads "candidate unresponsive after follow-up policy exhausted" |
 | Candidate-facing message sent | (no change) | (no change) | Logged as a Salesforce `Task` on the Contact |
+
+<Warning>
+  **Coming soon — unresponsive disposition fix.** When a candidate goes unresponsive after the follow-up policy is exhausted, the contact is correctly flipped to `Inactive`, but it is currently written as `Candidate: Rejected/Disqualified` / `Inadequate/No Experience` rather than `Candidate: Withdrew/Unresponsive`. This mislabels someone who simply never replied and skews disqualification-reason reporting. Tracked in [MAI-413](https://linear.app/maigrate/issue/MAI-413) / [MAI-415](https://linear.app/maigrate/issue/MAI-415).
+</Warning>
+
+<Note>
+  **Interview completion is not written back.** When an interview is marked complete in Maigrate, no Lumary update is sent today — recruiters record completion directly on the contact.
+</Note>
 
 Every candidate-facing message — recruiter or agent, SMS or email — is mirrored as a Salesforce Task. This means recruiters and care managers who view the Contact in Salesforce can see the full conversation history without needing to open Maigrate.
 
