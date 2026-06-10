@@ -1,0 +1,71 @@
+---
+title: "Calendly Integration"
+description: "Connect Calendly so self-booked interviews flow back into Maigrate automatically."
+---
+
+Some teams let candidates book interviews through a Calendly scheduling link instead of having Maigrate propose slots directly. When Calendly is connected, Maigrate receives a webhook every time a candidate books or cancels through one of those links, matches it back to the right application, and keeps the interview status in sync — so a self-booked interview shows up on the agenda just like one Maigrate scheduled.
+
+## What the integration does
+
+- **Listens for bookings**: When a candidate books through a Calendly link, Calendly sends Maigrate a webhook so the interview is recorded against the application
+- **Listens for cancellations**: If the candidate cancels, Maigrate updates the interview status automatically
+- **Attribution**: Maigrate matches the booking to the correct candidate and application using a tracking parameter on the scheduling link
+
+<Note>
+  Calendly is optional. If your team always lets Maigrate propose and book slots on recruiter calendars, you don't need this — see [Google Workspace](/integrations/google-workspace) instead. Connect Calendly only if you share Calendly scheduling links with candidates.
+</Note>
+
+## Prerequisites
+
+<Warning>
+  **A paid Calendly plan is required.** Calendly's free plan does not include API or integration access, so it can't generate the personal access token Maigrate needs. You'll need at least the plan tier that unlocks **API and webhooks**.
+</Warning>
+
+You'll also need to be an **owner or admin** on the Calendly account so you can create a personal access token for the organization.
+
+## Step 1: Create a personal access token in Calendly
+
+1. In Calendly, open **Integrations & apps** from the left sidebar
+2. In the search box, start typing **`API and`** and select **API and webhooks** when it appears
+
+<Frame>
+  <img src="/images/calendly-api-webhooks.png" alt="Calendly Integrations & apps page with 'API and' typed into the search box, showing the API and webhooks card marked Connected" />
+</Frame>
+
+3. On the API and webhooks page, click **Create a token** (under Personal access tokens)
+4. Give the token a name you'll recognize later — for example, `maigrate`
+5. Choose the **scopes** for the token. Maigrate needs to read your scheduling data **and** create a webhook subscription on your behalf, so the simplest, safest choice is to **select all scopes**. If you prefer to be selective, enable **all of the read scopes** plus the **Webhooks** scopes — without Webhooks, Maigrate can't register the connection.
+
+<Frame>
+  <img src="/images/calendly-token-scopes.png" alt="Calendly 'Create a personal access token' dialog showing the scope groups: Scheduling, User management, Contacts, Security & Compliance, and Webhooks" />
+</Frame>
+
+6. Click **Next**, confirm the token, and then **copy** the generated token
+
+<Warning>
+  Calendly shows the token value only once. Copy it now and paste it into Maigrate in the next step. If you lose it, you can revoke it and create a new one.
+</Warning>
+
+## Step 2: Paste the token into Maigrate
+
+1. In Maigrate, go to **Settings → Integrations → Calendly**
+2. Click **Configure**
+3. Paste the token into the **Personal Access Token** field
+4. Click **Save**
+
+Maigrate uses the token to register a webhook subscription with Calendly automatically — you don't need to set up the webhook URL by hand. When it succeeds, the Calendly integration status turns to **Connected** and shows **Webhook configured**. The read-only **Webhook URL** displayed on the panel is the endpoint Calendly will call; it's there for reference only.
+
+## Verifying the connection
+
+Book a test interview through one of your Calendly scheduling links. Within a few moments it should appear against the matching application in Maigrate, and the booking event will show in the Agent Activity feed.
+
+## Troubleshooting
+
+- **Save fails with a scope or permission error** — the token is missing a scope Maigrate needs. Revisit Step 1 and create a token with all scopes (or at minimum the read scopes **and** Webhooks), then re-run **Configure** with the new token.
+- **Save fails mentioning your plan** — the Calendly account isn't on a tier that includes API access. Upgrade the plan, then try again.
+- **Token saved but the webhook didn't get created** — Maigrate stores the token even if webhook setup fails, and shows the reason on the Calendly panel. Fix the underlying issue (usually scopes or plan) and click **Configure → Save** again to retry; you can leave the token field blank to retry with the token already on file.
+- **A self-booked interview didn't sync** — confirm the candidate booked through a Calendly link that carries Maigrate's tracking parameter (links Maigrate sends include it automatically). Bookings made through a plain Calendly link that Maigrate didn't generate can't be attributed back to an application.
+
+## Revoking access
+
+To disconnect, revoke the token in Calendly under **Integrations & apps → API and webhooks → Personal access tokens → Revoke**. Once revoked, Calendly stops sending booking webhooks to Maigrate.
