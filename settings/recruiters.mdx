@@ -32,6 +32,31 @@ Each recruiter needs a connected Google Calendar for the scheduling agent to rea
 
 For this to work, your Google Workspace administrator must complete the domain-wide delegation setup. See [Google Workspace Integration](/integrations/google-workspace).
 
+## Adding a recruiter's Calendly link
+
+If your team uses Calendly scheduling links, give each recruiter their own link so the scheduling agent can send it to the candidates assigned to that recruiter. When a candidate books through it, the interview syncs back into Maigrate automatically.
+
+<Steps>
+  <Step title="Connect the Calendly integration first">
+    The recruiter link only syncs bookings back if the [Calendly integration](/integrations/calendly) is connected for your organization. Set that up once before adding recruiter links.
+  </Step>
+  <Step title="Open the recruiter's editor">
+    Go to **Settings → Recruiters**, find the recruiter, and click **Edit** under **Actions**. The **Edit Recruiter** panel opens on the right.
+  </Step>
+  <Step title="Paste the Calendly link">
+    In the **Calendly Link** field, paste the recruiter's personal Calendly scheduling URL (for example, `https://calendly.com/jane-recruiter/intro`).
+  </Step>
+  <Step title="Save">
+    Click **Update**. The scheduling agent can now offer this recruiter's link to their assigned candidates.
+  </Step>
+</Steps>
+
+<Note>
+  When the agent sends a recruiter's Calendly link, it quietly appends a hidden tracking parameter that ties the link to the specific candidate and application. That's what lets a self-booked interview map back to the right record — so always let the agent send the link rather than pasting a raw Calendly URL into a message by hand.
+</Note>
+
+A recruiter with **no** Calendly link configured falls back to the normal flow: the agent proposes specific times pulled from their Google Calendar instead of sending a booking link.
+
 ## Setting business hours and availability
 
 Business hours tell the scheduling agent **which times of day it's allowed to offer** for a recruiter's interviews. You can set one default window for the whole week, then override or close individual days.
