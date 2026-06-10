@@ -107,6 +107,7 @@
             "pages": [
               "integrations/salesforce",
               "integrations/google-workspace",
+              "integrations/calendly",
               "integrations/twilio",
               "integrations/email"
             ]
