@@ -55,6 +55,18 @@ You'll also need to be an **owner or admin** on the Calendly account so you can 
 
 Maigrate uses the token to register a webhook subscription with Calendly automatically — you don't need to set up the webhook URL by hand. When it succeeds, the Calendly integration status turns to **Connected** and shows **Webhook configured**. The read-only **Webhook URL** displayed on the panel is the endpoint Calendly will call; it's there for reference only.
 
+## Step 3: Add each recruiter's Calendly link
+
+Connecting the integration tells Maigrate how to *receive* bookings — but the agent still needs to know *which* Calendly link to send. That link lives on each recruiter's profile.
+
+For every recruiter who schedules through Calendly, go to **Settings → Recruiters**, click **Edit**, and paste their personal scheduling URL into the **Calendly Link** field. See [Recruiters → Adding a recruiter's Calendly link](/settings/recruiters#adding-a-recruiter%27s-calendly-link) for the full steps.
+
+Without a link on the recruiter's profile, the scheduling agent falls back to proposing specific times from that recruiter's Google Calendar instead of sending a Calendly link.
+
+<Note>
+  Always let the agent send the link. It appends a hidden tracking parameter that ties the link to the exact candidate and application — that's what lets a self-booked interview map back to the right record. A raw Calendly URL pasted into a message by hand won't carry that attribution.
+</Note>
+
 ## Verifying the connection
 
 Book a test interview through one of your Calendly scheduling links. Within a few moments it should appear against the matching application in Maigrate, and the booking event will show in the Agent Activity feed.
