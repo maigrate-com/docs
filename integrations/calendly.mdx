@@ -57,15 +57,27 @@ Maigrate uses the token to register a webhook subscription with Calendly automat
 
 ## Step 3: Add each recruiter's Calendly link
 
-Connecting the integration tells Maigrate how to *receive* bookings — but the agent still needs to know *which* Calendly link to send. That link lives on each recruiter's profile.
+Connecting the integration tells Maigrate how to *receive* bookings — but the agent still needs to know *which* Calendly link to send. That link lives on each recruiter's profile, so do this once per recruiter who schedules through Calendly.
 
-For every recruiter who schedules through Calendly, go to **Settings → Recruiters**, click **Edit**, and paste their personal scheduling URL into the **Calendly Link** field. See [Recruiters → Adding a recruiter's Calendly link](/settings/recruiters#adding-a-recruiter%27s-calendly-link) for the full steps.
+<Steps>
+  <Step title="Open the recruiter's editor">
+    Go to **Settings → Recruiters**, find the recruiter in the list, and click **Edit** under **Actions**. The **Edit Recruiter** panel opens on the right.
+  </Step>
+  <Step title="Paste the Calendly link">
+    In the **Calendly Link** field, paste the recruiter's personal Calendly scheduling URL — for example, `https://calendly.com/jane-recruiter/intro`.
+  </Step>
+  <Step title="Save">
+    Click **Update**. The scheduling agent can now offer this recruiter's link to the candidates assigned to them.
+  </Step>
+</Steps>
 
 Without a link on the recruiter's profile, the scheduling agent falls back to proposing specific times from that recruiter's Google Calendar instead of sending a Calendly link.
 
 <Note>
   Always let the agent send the link. It appends a hidden tracking parameter that ties the link to the exact candidate and application — that's what lets a self-booked interview map back to the right record. A raw Calendly URL pasted into a message by hand won't carry that attribution.
 </Note>
+
+For more on managing recruiter profiles, see [Settings → Recruiters](/settings/recruiters).
 
 ## Verifying the connection
 
