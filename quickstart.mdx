@@ -1,84 +1,103 @@
 ---
-title: "Quickstart"
-description: "Your first day in Maigrate AI Hub — from login to your first resolved escalation."
+title: "Your Day in Maigrate"
+description: "The daily happy path — check your agenda, clear your escalations, and dig into a candidate when you need to."
 ---
 
-## 1. Log in
+Most of the work in Maigrate AI Hub happens without you. Candidates apply, get screened, get messaged, and book their own interviews — all on autopilot. Your day is the short list of things the agents can't do alone.
 
-Navigate to your Maigrate AI Hub URL and enter your work email address. You'll be redirected to your organization's login page. After authenticating, you'll land on the **Command Center**.
+That comes down to three things:
+
+<Steps>
+  <Step title="Check your agenda">
+    See what's on today — interviews, and anything waiting on you.
+  </Step>
+  <Step title="Clear your escalations">
+    Handle the cases the agents flagged for a human decision.
+  </Step>
+  <Step title="Record what happened">
+    Mark interviews completed or no-show so the agents keep moving.
+  </Step>
+</Steps>
+
+If you need more context on a candidate along the way, you open their record. That's the whole job. Everything below walks through each step.
 
 <Note>
-  If you see a blank screen or an error after login, your IT admin may need to provision your account. Contact your Maigrate administrator.
+  **If you only have ten minutes, work the escalations.** Everything else is the agents running normally — escalations are the cases waiting on you, often with a clock running.
 </Note>
 
-## 2. Orient yourself in the Command Center
+## 1. Check your agenda
 
-The Command Center is your default home. It shows three panels:
+When you log in, you land on the **Command Center** — your home base. It shows three panels:
 
-- **Escalations** — items that need a human decision before the agents can continue
-- **Upcoming Interviews** — interviews scheduled in the next 48 hours
-- **Review Queue** — candidates whose screening decision needs your sign-off
+| Panel | What it's for |
+|---|---|
+| **Escalations** | Cases the agents flagged for a human decision (your step 2) |
+| **Upcoming Interviews** | Interviews booked in the next 48 hours |
+| **Review Queue** | Candidates the screening agent couldn't confidently advance or reject |
 
-If this is a fresh deployment, the panels will be empty. Candidates appear here as they enter the system.
+<Frame>
+  <img src="/images/command-center.png" alt="Command Center showing escalations, upcoming interviews, and the review queue" />
+</Frame>
 
-## 3. Explore the Applicants board
+For a fuller picture of the day's interviews — including ones that already happened and how they turned out — open the [**Interview Agenda**](/recruiter/agenda). It shows every interview booked for the day you pick (not just the ones still scheduled), so outcomes never slip through the cracks. Use the date picker to look ahead or back, and filter by recruiter to see just one person's day.
 
-Click **Applicants** in the left sidebar. This is your full application board — every candidate the system has processed.
+## 2. Clear your escalations
 
-Click any row to open the **application drawer**. The drawer has three tabs:
+An **escalation** is the agent raising its hand. When it hits something it can't resolve on its own — an ambiguous reply, a calendar conflict, a question it isn't allowed to answer, a repeat no-show — it pauses automation on that candidate and surfaces the case in the Command Center.
+
+Click any escalation to open the candidate's record. You'll see what the agent did, why it stopped, and what it recommends. From there you usually do one of:
+
+- **Send operator guidance** — a private instruction to the agent on how to proceed (e.g. *"Offer them next Monday at 9 AM"* or *"This candidate is exempt from the weekend policy — proceed with Saturday slots"*). The candidate never sees it.
+- **Message the candidate directly** — take the reply yourself from the Communication tab.
+- **Override the screening decision** — if it's screening-related, set it to `Advance`, `Review`, or `Reject` on the Screening tab.
+
+Then click **Mark Resolved**. Each escalation type has a specific best move — the [Escalations guide](/recruiter/escalations) lists every reason code and exactly what to do for each.
+
+<Note>
+  Resolving an escalation doesn't always restart the agent on its own. If you want it to keep going, leave operator guidance telling it what to do next.
+</Note>
+
+## 3. Record what happened
+
+After an interview's scheduled time passes, mark the outcome so the pipeline keeps moving. The fastest way is right on the [Interview Agenda](/recruiter/agenda): on any interview, open the menu next to its status and choose **Mark Completed** or **Mark No-Show**.
+
+Marking a no-show automatically kicks the scheduling agent into rebooking — you don't have to chase the reschedule yourself.
+
+<Note>
+  Recording outcomes promptly is what keeps the agents working. An interview left un-marked stalls everything downstream for that candidate.
+</Note>
+
+## When you need more: dig into a candidate
+
+Click any candidate — from the Command Center, the Agenda, or the [**Applicants**](/recruiter/applicants) board — to open their **application drawer**. This is the full record, organized into three tabs:
 
 | Tab | What you'll find |
 |---|---|
-| **Details** | Contact info, recruiter assignment, resume download, manual action buttons |
-| **Screening** | AI decision, rationale, candidate evidence, and override controls |
-| **Communication** | Full message thread with the candidate, direct message input, and operator guidance |
+| **Details** | Contact info, recruiter assignment, resume, and manual actions (run screening, schedule, dismiss the agent) |
+| **Screening** | The AI decision, its written rationale, the evidence it used, and override controls |
+| **Communication** | The full message thread with the candidate, plus inputs to message them directly or send operator guidance |
 
-## 4. Review a screening decision
+The **Applicants** board is also where you go to find anyone who isn't on today's agenda — search or filter by decision, status, recruiter, or date.
 
-Open any candidate in the **Screening** tab. You'll see:
+## What you don't have to do
 
-- The **decision** (`Advance`, `Review`, or `Reject`) with a confidence indicator
-- The agent's **written rationale** explaining why
-- The **candidate evidence** (application answers, job context) the agent used
-
-If you agree, no action is needed. To override:
-
-1. Select the correct decision from the dropdown
-2. Add a brief reason (required for overrides)
-3. Click **Save Override**
-
-Your override becomes the authoritative decision for all downstream steps.
-
-## 5. Resolve your first escalation
-
-Head back to the **Command Center**. Click any escalation to open it.
-
-Each escalation shows:
-- **What happened** — the agent's explanation of why it stopped
-- **Candidate context** — who this is and where they are in the funnel
-- **Resolution options** — typically resolve, send a message, or dismiss the agent
-
-After you take action, click **Mark Resolved**. The escalation clears from the queue and (depending on your configuration) the agent resumes automatically.
-
-## 6. Send a direct message
-
-In the **Communication** tab of any application drawer, you can message the candidate directly. Type your message, select SMS or Email, and click **Send**. The message is delivered via your configured Twilio/Resend account and logged in the thread.
-
-You can also send **operator guidance** — a private note visible only to the agent, not the candidate. Use this to give the agent context or redirect its next action.
+- **You don't run follow-ups.** Candidates who go quiet get nudged automatically on a set cadence. See [Follow-up policy](/recruiter/follow-up-policy).
+- **You don't send interview reminders.** A same-day reminder fires on its own.
+- **You don't update the ATS or Salesforce.** Maigrate writes back the events that matter.
 
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Command Center in depth" href="/recruiter/command-center">
-    Understand escalation types, SLAs, and resolution workflows.
+  <Card title="Command Center in depth" icon="gauge" href="/recruiter/command-center">
+    The three panels, SLAs, and what to check first.
   </Card>
-  <Card title="Configure the agents" href="/settings/overview">
-    Set screening directives, scheduling guidance, and message templates.
+  <Card title="Escalations reference" icon="triangle-exclamation" href="/recruiter/escalations">
+    Every reason code and exactly how to resolve it.
   </Card>
-  <Card title="Set up integrations" href="/integrations/google-workspace">
-    Connect Google Calendar, Twilio, email, and your ATS.
+  <Card title="Working a candidate" icon="users" href="/recruiter/applicants">
+    The application drawer, tab by tab.
   </Card>
-  <Card title="Key concepts" href="/concepts">
-    Learn the vocabulary: agents, directives, threads, escalations.
+  <Card title="Key concepts" icon="book" href="/concepts">
+    Agents, directives, threads, escalations — the vocabulary.
   </Card>
 </CardGroup>
