@@ -3,11 +3,26 @@ title: "Changelog"
 description: "Product updates and improvements to Maigrate AI Hub."
 ---
 
+## Week of June 8, 2026
+
+### New features
+
+- **Full Lumary status sync, including automatic inactive moves.** Maigrate now keeps the complete set of candidate statuses in sync with Lumary/Salesforce and moves candidates to an inactive status on its own when they're no longer active in the process — so your ATS reflects reality without manual cleanup. See [Salesforce integration](/integrations/salesforce).
+
+### Updates
+
+- **Choose what happens after a no-show.** When you mark a candidate as a no-show, you now pick the outcome — reschedule the candidate or reject the application — and the agent takes it from there. See [Interview Agenda](/recruiter/agenda).
+- **Calendar availability settings are now per-person.** Each recruiter sees and edits only their own calendar availability, so one person's settings can't be changed by someone else. See [Recruiter settings](/settings/recruiters).
+
+### Bug fixes
+
+- **Rescheduled interviews no longer show the candidate's live link as "canceled."** Fixed a case where, after a reschedule, a candidate's Google Meet link could display the old, canceled event — which in one instance led a candidate to leave a live interview. Rescheduled interviews now keep a clean, correct invite. See [Scheduling](/recruiter/scheduling).
+
 ## Week of June 1, 2026
 
 ### New features
 
-- **Calendly scheduling, end to end.** You can now connect Calendly in Settings — with a guided setup and a live connection status — and copy an assigned recruiter's Calendly booking link straight from the application drawer. Once connected, Maigrate automatically picks up Calendly bookings, cancellations, and reschedules and keeps each interview's status in sync. Duplicate Calendly bookings no longer silently overwrite an active interview; anything ambiguous is routed for a person to review. See [Scheduling](/recruiter/scheduling).
+- **Calendly scheduling, end to end.** You can now connect Calendly in Settings — with a guided setup and a live connection status — and copy an assigned recruiter's Calendly booking link straight from the application drawer. Once connected, Maigrate automatically picks up Calendly bookings, cancellations, and reschedules and keeps each interview's status in sync. Duplicate Calendly bookings no longer silently overwrite an active interview; anything ambiguous is routed for a person to review. See [Calendly setup](/integrations/calendly).
 - **Cancel an interview and see full interview history from the drawer.** You can now cancel a scheduled interview directly from the application drawer, and view every interview record for an application — the active one alongside canceled and rescheduled history. See [Scheduling](/recruiter/scheduling).
 
 ### Updates
