@@ -1,0 +1,30 @@
+---
+title: "August 2026"
+description: "Product updates and improvements to Maigrate AI Hub."
+---
+
+## New features
+
+- **Cancel a batch of candidates in one action.** Select several applications in the applicant list and cancel them together instead of one at a time. Each candidate gets the right message for their situation, and if one of them writes back afterwards the agent answers rather than leaving the reply unattended. See [Applicants](/recruiter/applicants).
+- **Escalations that miss their deadline now surface on their own.** Every escalation carries a response deadline, and one that passes it is now raised for you instead of sitting quietly in the queue until someone happens to notice it. See [Escalations](/recruiter/escalations).
+- **Candidate-level escalations are fully actionable.** When a candidate has several applications assigned to different recruiters, their escalation used to appear in Command Center as a card you could not open or clear. It now opens a full detail view with the candidate's context and every related application, so you can act on it and hand the candidate back to the agent. See [Command Center](/recruiter/command-center).
+
+## Updates
+
+- **The agenda shows where the interview is.** The Reminder column is replaced by Location, which shows the job's city, state, and ZIP. Reminder state is still visible on the candidate's timeline. See [Interview Agenda](/recruiter/agenda).
+- **The agenda opens filtered to you.** It now defaults to the signed-in recruiter's interviews instead of everyone's. Switch to another recruiter or to all recruiters with the filter. See [Interview Agenda](/recruiter/agenda).
+- **Reminder timing follows the booking day.** A candidate who books on the day of the interview now gets only the ten-minute reminder. A candidate who books the evening before no longer gets a morning-of reminder. See [Follow-up policy](/recruiter/follow-up-policy).
+- **Screening decisions have to agree with their own reasoning.** A screening result that advances a candidate while the reasoning says the opposite is now rejected instead of saved, and a decision that overrides a screening rule has to name the rule it overrides. See [Screening](/recruiter/screening).
+
+## Bug fixes
+
+- **No more double replies to back-to-back messages.** When a candidate sent two texts within a few seconds, both could trigger a reply, and the second one answered a message the agent had already handled. A run that has been superseded by a newer message now stops instead of replying. See [Communication](/recruiter/communication).
+- **Follow-ups no longer go out early.** Fixed a case where a follow-up snapped to the candidate's preferred time of day and sent before the waiting period had actually elapsed. See [Follow-up policy](/recruiter/follow-up-policy).
+- **Follow-ups no longer point at times that have passed.** Interview slots the agent offered earlier are dropped from its context once they expire, so a nudge can't ask a candidate to confirm a time that is already gone.
+- **The scheduling agent records the times it offers.** After proposing interview times it did not always save the interview request or move the scheduling status, so the application looked untouched.
+- **An escalation always leaves the candidate with a reply.** Fixed a case where the agent could escalate to a person and send the candidate nothing at all.
+- **Escalation handoffs no longer strand a candidate.** Messages that arrive during an active escalation now come back to a human, escalations carry the application they belong to, and closing out one application no longer clears unrelated escalations for the same candidate. See [Escalations](/recruiter/escalations).
+- **Interview requests close once a booking is confirmed.** A completed booking left its interview request open, so the candidate could still look like they were waiting on times.
+- **Resumes with spaces in the file name download again.** See [Applicants](/recruiter/applicants).
+- **The escalation inbox loads for every signed-in user.** See [Command Center](/recruiter/command-center).
+- **Turning the meeting notetaker off keeps it off.** Saving an unrelated setting could switch it back on.

@@ -118,9 +118,12 @@
         "tab": "Changelog",
         "groups": [
           {
-            "group": "Changelog",
+            "group": "2026",
             "pages": [
-              "changelog"
+              "changelog/2026-08",
+              "changelog/2026-07",
+              "changelog/2026-06",
+              "changelog/2026-05"
             ]
           }
         ]
@@ -160,5 +163,12 @@
     "socials": {
       "linkedin": "https://linkedin.com/company/maigrate"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/changelog",
+      "destination": "/changelog/2026-08",
+      "permanent": false
+    }
+  ]
 }
