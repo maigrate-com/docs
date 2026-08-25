@@ -3,6 +3,103 @@ title: "Changelog"
 description: "Product updates and improvements to Maigrate AI Hub."
 ---
 
+## August 2026
+
+### New features
+
+- **Cancel a batch of candidates in one action.** Select several applications in the applicant list and cancel them together instead of one at a time. Each candidate gets the right message for their situation, and if one of them writes back afterwards the agent answers rather than leaving the reply unattended. See [Applicants](/recruiter/applicants).
+- **Escalations that miss their deadline now surface on their own.** Every escalation carries a response deadline, and a sweep now raises the ones that pass it. Before this, a stalled escalation stayed invisible until someone happened to notice — in one case a candidate waited nearly three days. See [Escalations](/recruiter/escalations).
+- **Candidate-level escalations are fully actionable.** When a candidate has several applications assigned to different recruiters, their escalation used to appear in Command Center as a card you could not open or clear. It now opens a full detail view with the candidate's context and every related application, so you can act on it and hand the candidate back to the agent. See [Command Center](/recruiter/command-center).
+
+### Updates
+
+- **The agenda shows where the interview is.** The Reminder column is replaced by Location, which shows the job's city, state, and ZIP. Reminder state is still visible on the candidate's timeline. See [Interview Agenda](/recruiter/agenda).
+- **The agenda opens filtered to you.** It now defaults to the signed-in recruiter's interviews instead of everyone's. Switch to another recruiter or to all recruiters with the filter. See [Interview Agenda](/recruiter/agenda).
+- **Reminder timing follows the booking day.** A candidate who books on the day of the interview now gets only the ten-minute reminder. A candidate who books the evening before no longer gets a morning-of reminder. See [Follow-up policy](/recruiter/follow-up-policy).
+- **Screening decisions have to agree with their own reasoning.** A screening result that advances a candidate while the reasoning says the opposite is now rejected instead of saved, and a decision that overrides a screening rule has to name the rule it overrides. See [Screening](/recruiter/screening).
+
+### Bug fixes
+
+- **No more double replies to back-to-back messages.** When a candidate sent two texts within a few seconds, both could trigger a reply, and the second one answered a message the agent had already handled. A run that has been superseded by a newer message now stops instead of replying. See [Communication](/recruiter/communication).
+- **Follow-ups no longer go out early.** Fixed a case where a follow-up snapped to the candidate's preferred time of day and sent before the waiting period had actually elapsed. See [Follow-up policy](/recruiter/follow-up-policy).
+- **Follow-ups no longer point at times that have passed.** Interview slots the agent offered earlier are dropped from its context once they expire, so a nudge can't ask a candidate to confirm a time that is already gone.
+- **The scheduling agent records the times it offers.** After proposing interview times it did not always save the interview request or move the scheduling status, so the application looked untouched.
+- **An escalation always leaves the candidate with a reply.** Fixed a case where the agent could escalate to a person and send the candidate nothing at all.
+- **Escalation handoffs no longer strand a candidate.** Messages that arrive during an active escalation now come back to a human, escalations carry the application they belong to, and closing out one application no longer clears unrelated escalations for the same candidate. See [Escalations](/recruiter/escalations).
+- **Interview requests close once a booking is confirmed.** A completed booking left its interview request open, so the candidate could still look like they were waiting on times.
+- **Resumes with spaces in the file name download again.** See [Applicants](/recruiter/applicants).
+- **The escalation inbox loads for every signed-in user.** See [Command Center](/recruiter/command-center).
+- **Turning the meeting notetaker off keeps it off.** Saving an unrelated setting could switch it back on.
+
+## July 2026
+
+### New features
+
+- **Calendly bookings are canceled and rescheduled through Calendly.** When a booking was made through a Calendly link, Maigrate now cancels and reschedules it through Calendly's own API rather than editing the calendar event directly. The two systems stop disagreeing about the state of an interview. See [Calendly setup](/integrations/calendly).
+- **Meeting links are resolved at send time.** Every message that carries a meeting link now looks the link up when the message goes out, so a candidate can no longer receive a link that changed after the invite was written. See [Scheduling](/recruiter/scheduling).
+- **Document review is driven by your own document definitions.** You now define which documents your organization accepts, what each one has to prove, and which of them a given role requires — separately from one another. A document can be valid on its own without satisfying a requirement, which is how expiring credentials and role-specific paperwork actually behave. See [Document review](/settings/document-review).
+- **The screening agent can assign a recruiter.** When screening advances a candidate, it can now pick the recruiter to hand them to instead of leaving the assignment for a person. See [Screening](/recruiter/screening).
+- **Rejection emails send in every location.** Rejection notices were only going out for one state's postings; they now send everywhere the setting is enabled. See [Communication settings](/settings/communication).
+
+### Updates
+
+- **Blocking escalations can't be pushed out of view.** Command Center's queue limits could hide an escalation that was blocking the agent. Blocking escalations now always appear. See [Command Center](/recruiter/command-center).
+- **Every agent can see the screening result.** The communication, document, and scheduling agents now read the candidate's screening context, so they stop asking about things screening already established. See [Screening](/recruiter/screening).
+- **Clear escalations in bulk.** A button in Command Center clears resolved escalations without going through them one at a time. See [Command Center](/recruiter/command-center).
+- **Private calendar events stay private.** The recruiter calendar page shows a busy block for events marked private instead of their details. See [Recruiter settings](/settings/recruiters).
+- **No same-day morning confirmation for a same-day booking.** If a candidate books an interview on the day it happens, the morning confirmation is skipped.
+- **Twilio's inbound webhook configures itself.** Connecting Twilio now sets the inbound SMS webhook URL for you. See [Twilio integration](/integrations/twilio).
+- **The applicant list is paginated and loads faster.** See [Applicants](/recruiter/applicants).
+- **"Interested - Not Scheduled" is retired.** The status never meant anything distinct from the statuses either side of it.
+- **Salesforce records an end date for inactive contacts.** A contact moved to an inactive onboarding step now gets its end date set at the same time. See [Salesforce integration](/integrations/salesforce).
+- **Integration tokens are scoped and revocable.** An API token issued to an integration now reaches only that integration's endpoints, and it stops working as soon as the tenant is disabled. Recruiter management endpoints are admin-only.
+
+### Bug fixes
+
+- **A stalled follow-up loop left candidates uncontacted.** Fixed a case where the follow-up cadence retried hourly without ever sending anything or giving up, which stranded a small number of candidates who were never contacted and never retired. See [Follow-up policy](/recruiter/follow-up-policy).
+- **No-show applications no longer retry forever.** Outreach after a no-show did not count against the follow-up limit, so it repeated indefinitely.
+- **Notes to the agent are no longer logged as texts to the candidate.** Guidance a recruiter typed for the agent could appear in the candidate's history as a delivered SMS. See [Communication](/recruiter/communication).
+- **Calendly self-bookings write their status back to your ATS.** An interview a candidate booked through a Calendly link never updated the Salesforce record. See [Salesforce integration](/integrations/salesforce).
+- **One unreadable calendar no longer blocks scheduling.** If a recruiter's calendar could not be read, the agent stopped looking for times entirely. It now skips that recruiter and carries on.
+- **Resumes submitted as images are screened.** A photographed or scanned resume was sent to the screener in a form it could not read. See [Screening](/recruiter/screening).
+- **Screening reads the job posting.** Applications arriving from ApplicantStack were screened without the posting they applied to.
+- **Meeting invitation subject lines use the right time zone.** See [Scheduling](/recruiter/scheduling).
+- **The agent stops asking about documents you already have.** A clarification request could go out for a requirement that had already been satisfied. See [Document review](/settings/document-review).
+- **Escalations open the standard detail view.** See [Escalations](/recruiter/escalations).
+
+## June 15-30, 2026
+
+### New features
+
+- **One conversation per candidate, across every application.** Communication is now organized around the candidate rather than around a single application. A candidate who applies to three roles has one thread, one follow-up cadence, and one place their replies land, no matter which application prompted the message. The application pane shows that full conversation. See [Communication](/recruiter/communication).
+- **A screening review screen.** Screening results now have their own view, with the model's reasoning, the evidence it used, and the decision it reached — plus the ability to override it. See [Screening](/recruiter/screening).
+- **ApplicantStack integration.** Maigrate can now read candidates, applications, and job postings from ApplicantStack, screen them, and write status back. Connect it in Settings and choose which postings to admit by department and location.
+- **Recruiter pools.** Recruiters can be grouped into a pool, and the scheduling agent can book a candidate with any recruiter in that pool rather than only the one they were assigned. See [Scheduling settings](/settings/scheduling).
+- **Screening criteria can differ by state.** Requirements that vary by location — certification, licensure, minimum hours — can now be expressed per state instead of as one global rule. See [Screening settings](/settings/screening).
+- **An admin console for user assignment.** Admins can add, remove, and assign users to the app themselves instead of filing a request. See [Recruiter settings](/settings/recruiters).
+- **See the resume in the Documents tab.** A candidate's resume now renders inline alongside their other documents. See [Applicants](/recruiter/applicants).
+
+### Updates
+
+- **The assigned recruiter locks once an interview is booked.** Changing it afterwards left the interview on the wrong person's calendar, so the field is now read-only from that point.
+- **Candidates are told when their meeting link changes.** If an interview's link changes after the invite went out, the agent sends the new one rather than leaving the candidate with a dead link. See [Scheduling](/recruiter/scheduling).
+- **The agent stops re-asking for credentials it already has.** See [Communication](/recruiter/communication).
+- **Faster first follow-up.** The follow-up scan now runs every five minutes, which makes a ten-minute first nudge possible. See [Follow-up policy](/recruiter/follow-up-policy).
+- **A rejected document goes to a person.** When the document agent rejects a document, it escalates rather than continuing to ask the candidate. See [Document review](/settings/document-review).
+
+### Bug fixes
+
+- **Calendly bookings get their morning reminder.** Interviews booked through a Calendly link were skipped by the reminder that goes out the morning of. See [Calendly setup](/integrations/calendly).
+- **Initial outreach sends reliably.** Fixed a case where the first message to a new candidate failed to go out.
+- **Interviews always carry a meeting link.** Fixed a case where an interview was created without one.
+- **Scheduling messages are no longer silently dropped.** A message the scheduling agent produced could be recorded without ever being sent.
+- **Scheduling escalates when no recruiter is eligible.** Instead of failing quietly, the agent now raises it. See [Escalations](/recruiter/escalations).
+- **Screening falls back to the resume text.** If the resume file itself cannot be opened, screening now reads the extracted text rather than giving up. See [Screening](/recruiter/screening).
+- **Follow-up attempts count what was actually sent.** The attempt counter incremented on runs that sent nothing, so candidates ran out of follow-ups early.
+- **Calendly bookings match the right candidate.** Fixed a case where a booking made with a different email address than the application did not attach to that candidate. See [Calendly setup](/integrations/calendly).
+- **Resolving an escalation from the inbox clears it everywhere.** The candidate could stay marked as human-owned after the escalation was resolved. See [Escalations](/recruiter/escalations).
+- **Communication template settings save again.** See [Communication settings](/settings/communication).
+
 ## Week of June 8, 2026
 
 ### New features
