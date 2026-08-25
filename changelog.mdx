@@ -8,7 +8,7 @@ description: "Product updates and improvements to Maigrate AI Hub."
 ### New features
 
 - **Cancel a batch of candidates in one action.** Select several applications in the applicant list and cancel them together instead of one at a time. Each candidate gets the right message for their situation, and if one of them writes back afterwards the agent answers rather than leaving the reply unattended. See [Applicants](/recruiter/applicants).
-- **Escalations that miss their deadline now surface on their own.** Every escalation carries a response deadline, and a sweep now raises the ones that pass it. Before this, a stalled escalation stayed invisible until someone happened to notice — in one case a candidate waited nearly three days. See [Escalations](/recruiter/escalations).
+- **Escalations that miss their deadline now surface on their own.** Every escalation carries a response deadline, and one that passes it is now raised for you instead of sitting quietly in the queue until someone happens to notice it. See [Escalations](/recruiter/escalations).
 - **Candidate-level escalations are fully actionable.** When a candidate has several applications assigned to different recruiters, their escalation used to appear in Command Center as a card you could not open or clear. It now opens a full detail view with the candidate's context and every related application, so you can act on it and hand the candidate back to the agent. See [Command Center](/recruiter/command-center).
 
 ### Updates
@@ -44,7 +44,7 @@ description: "Product updates and improvements to Maigrate AI Hub."
 ### Updates
 
 - **Blocking escalations can't be pushed out of view.** Command Center's queue limits could hide an escalation that was blocking the agent. Blocking escalations now always appear. See [Command Center](/recruiter/command-center).
-- **Every agent can see the screening result.** The communication, document, and scheduling agents now read the candidate's screening context, so they stop asking about things screening already established. See [Screening](/recruiter/screening).
+- **The agent stops asking about things screening already settled.** Screening's findings are now available to the agent everywhere else it talks to a candidate, so a candidate is not asked twice for something they already provided. See [Screening](/recruiter/screening).
 - **Clear escalations in bulk.** A button in Command Center clears resolved escalations without going through them one at a time. See [Command Center](/recruiter/command-center).
 - **Private calendar events stay private.** The recruiter calendar page shows a busy block for events marked private instead of their details. See [Recruiter settings](/settings/recruiters).
 - **No same-day morning confirmation for a same-day booking.** If a candidate books an interview on the day it happens, the morning confirmation is skipped.
@@ -52,17 +52,16 @@ description: "Product updates and improvements to Maigrate AI Hub."
 - **The applicant list is paginated and loads faster.** See [Applicants](/recruiter/applicants).
 - **"Interested - Not Scheduled" is retired.** The status never meant anything distinct from the statuses either side of it.
 - **Salesforce records an end date for inactive contacts.** A contact moved to an inactive onboarding step now gets its end date set at the same time. See [Salesforce integration](/integrations/salesforce).
-- **Integration tokens are scoped and revocable.** An API token issued to an integration now reaches only that integration's endpoints, and it stops working as soon as the tenant is disabled. Recruiter management endpoints are admin-only.
 
 ### Bug fixes
 
-- **A stalled follow-up loop left candidates uncontacted.** Fixed a case where the follow-up cadence retried hourly without ever sending anything or giving up, which stranded a small number of candidates who were never contacted and never retired. See [Follow-up policy](/recruiter/follow-up-policy).
+- **A stalled follow-up loop left candidates uncontacted.** Fixed a case where the follow-up cadence retried hourly without sending anything and without giving up, so a candidate could sit in active outreach and never be contacted. See [Follow-up policy](/recruiter/follow-up-policy).
 - **No-show applications no longer retry forever.** Outreach after a no-show did not count against the follow-up limit, so it repeated indefinitely.
 - **Notes to the agent are no longer logged as texts to the candidate.** Guidance a recruiter typed for the agent could appear in the candidate's history as a delivered SMS. See [Communication](/recruiter/communication).
 - **Calendly self-bookings write their status back to your ATS.** An interview a candidate booked through a Calendly link never updated the Salesforce record. See [Salesforce integration](/integrations/salesforce).
 - **One unreadable calendar no longer blocks scheduling.** If a recruiter's calendar could not be read, the agent stopped looking for times entirely. It now skips that recruiter and carries on.
 - **Resumes submitted as images are screened.** A photographed or scanned resume was sent to the screener in a form it could not read. See [Screening](/recruiter/screening).
-- **Screening reads the job posting.** Applications arriving from ApplicantStack were screened without the posting they applied to.
+- **Screening reads the job posting.** Some applications were screened without the posting the candidate applied to, so role-specific requirements were not applied. See [Screening](/recruiter/screening).
 - **Meeting invitation subject lines use the right time zone.** See [Scheduling](/recruiter/scheduling).
 - **The agent stops asking about documents you already have.** A clarification request could go out for a requirement that had already been satisfied. See [Document review](/settings/document-review).
 - **Escalations open the standard detail view.** See [Escalations](/recruiter/escalations).
@@ -72,7 +71,7 @@ description: "Product updates and improvements to Maigrate AI Hub."
 ### New features
 
 - **One conversation per candidate, across every application.** Communication is now organized around the candidate rather than around a single application. A candidate who applies to three roles has one thread, one follow-up cadence, and one place their replies land, no matter which application prompted the message. The application pane shows that full conversation. See [Communication](/recruiter/communication).
-- **A screening review screen.** Screening results now have their own view, with the model's reasoning, the evidence it used, and the decision it reached — plus the ability to override it. See [Screening](/recruiter/screening).
+- **A screening review screen.** Screening results now have their own view, with the agent's reasoning, the evidence it used, and the decision it reached — plus the ability to override it. See [Screening](/recruiter/screening).
 - **ApplicantStack integration.** Maigrate can now read candidates, applications, and job postings from ApplicantStack, screen them, and write status back. Connect it in Settings and choose which postings to admit by department and location.
 - **Recruiter pools.** Recruiters can be grouped into a pool, and the scheduling agent can book a candidate with any recruiter in that pool rather than only the one they were assigned. See [Scheduling settings](/settings/scheduling).
 - **Screening criteria can differ by state.** Requirements that vary by location — certification, licensure, minimum hours — can now be expressed per state instead of as one global rule. See [Screening settings](/settings/screening).
