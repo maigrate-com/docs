@@ -1,0 +1,74 @@
+---
+title: "June 2026"
+description: "Product updates and improvements to Maigrate AI Hub."
+---
+
+## June 15-30, 2026
+
+### New features
+
+- **One conversation per candidate, across every application.** Communication is now organized around the candidate rather than around a single application. A candidate who applies to three roles has one thread, one follow-up cadence, and one place their replies land, no matter which application prompted the message. The application pane shows that full conversation. See [Communication](/recruiter/communication).
+- **A screening review screen.** Screening results now have their own view, with the agent's reasoning, the evidence it used, and the decision it reached — plus the ability to override it. See [Screening](/recruiter/screening).
+- **ApplicantStack integration.** Maigrate can now read candidates, applications, and job postings from ApplicantStack, screen them, and write status back. Connect it in Settings and choose which postings to admit by department and location.
+- **Recruiter pools.** Recruiters can be grouped into a pool, and the scheduling agent can book a candidate with any recruiter in that pool rather than only the one they were assigned. See [Scheduling settings](/settings/scheduling).
+- **Screening criteria can differ by state.** Requirements that vary by location — certification, licensure, minimum hours — can now be expressed per state instead of as one global rule. See [Screening settings](/settings/screening).
+- **An admin console for user assignment.** Admins can add, remove, and assign users to the app themselves instead of filing a request. See [Recruiter settings](/settings/recruiters).
+- **See the resume in the Documents tab.** A candidate's resume now renders inline alongside their other documents. See [Applicants](/recruiter/applicants).
+
+### Updates
+
+- **The assigned recruiter locks once an interview is booked.** Changing it afterwards left the interview on the wrong person's calendar, so the field is now read-only from that point.
+- **Candidates are told when their meeting link changes.** If an interview's link changes after the invite went out, the agent sends the new one rather than leaving the candidate with a dead link. See [Scheduling](/recruiter/scheduling).
+- **The agent stops re-asking for credentials it already has.** See [Communication](/recruiter/communication).
+- **Faster first follow-up.** The follow-up scan now runs every five minutes, which makes a ten-minute first nudge possible. See [Follow-up policy](/recruiter/follow-up-policy).
+- **A rejected document goes to a person.** When the document agent rejects a document, it escalates rather than continuing to ask the candidate. See [Document review](/settings/document-review).
+
+### Bug fixes
+
+- **Calendly bookings get their morning reminder.** Interviews booked through a Calendly link were skipped by the reminder that goes out the morning of. See [Calendly setup](/integrations/calendly).
+- **Initial outreach sends reliably.** Fixed a case where the first message to a new candidate failed to go out.
+- **Interviews always carry a meeting link.** Fixed a case where an interview was created without one.
+- **Scheduling messages are no longer silently dropped.** A message the scheduling agent produced could be recorded without ever being sent.
+- **Scheduling escalates when no recruiter is eligible.** Instead of failing quietly, the agent now raises it. See [Escalations](/recruiter/escalations).
+- **Screening falls back to the resume text.** If the resume file itself cannot be opened, screening now reads the extracted text rather than giving up. See [Screening](/recruiter/screening).
+- **Follow-up attempts count what was actually sent.** The attempt counter incremented on runs that sent nothing, so candidates ran out of follow-ups early.
+- **Calendly bookings match the right candidate.** Fixed a case where a booking made with a different email address than the application did not attach to that candidate. See [Calendly setup](/integrations/calendly).
+- **Resolving an escalation from the inbox clears it everywhere.** The candidate could stay marked as human-owned after the escalation was resolved. See [Escalations](/recruiter/escalations).
+- **Communication template settings save again.** See [Communication settings](/settings/communication).
+
+## Week of June 8, 2026
+
+### New features
+
+- **Full Lumary status sync, including automatic inactive moves.** Maigrate now keeps the complete set of candidate statuses in sync with Lumary/Salesforce and moves candidates to an inactive status on its own when they're no longer active in the process — so your ATS reflects reality without manual cleanup. See [Salesforce integration](/integrations/salesforce).
+
+### Updates
+
+- **Choose what happens after a no-show.** When you mark a candidate as a no-show, you now pick the outcome — reschedule the candidate or reject the application — and the agent takes it from there. See [Interview Agenda](/recruiter/agenda).
+- **Calendar availability settings are now per-person.** Each recruiter sees and edits only their own calendar availability, so one person's settings can't be changed by someone else. See [Recruiter settings](/settings/recruiters).
+
+### Bug fixes
+
+- **Rescheduled interviews no longer show the candidate's live link as "canceled."** Fixed a case where, after a reschedule, a candidate's Google Meet link could display the old, canceled event — which in one instance led a candidate to leave a live interview. Rescheduled interviews now keep a clean, correct invite. See [Scheduling](/recruiter/scheduling).
+
+## Week of June 1, 2026
+
+### New features
+
+- **Calendly scheduling, end to end.** You can now connect Calendly in Settings — with a guided setup and a live connection status — and copy an assigned recruiter's Calendly booking link straight from the application drawer. Once connected, Maigrate automatically picks up Calendly bookings, cancellations, and reschedules and keeps each interview's status in sync. Duplicate Calendly bookings no longer silently overwrite an active interview; anything ambiguous is routed for a person to review. See [Calendly setup](/integrations/calendly).
+- **Cancel an interview and see full interview history from the drawer.** You can now cancel a scheduled interview directly from the application drawer, and view every interview record for an application — the active one alongside canceled and rescheduled history. See [Scheduling](/recruiter/scheduling).
+
+### Updates
+
+- **Mark a no-show for interviews that already passed.** You can now record a no-show from the application drawer for an interview whose scheduled time has already gone by. See [Scheduling](/recruiter/scheduling).
+- **Cancel even when there's no open slot.** If a recruiter's calendar is full, the agent can now cancel a candidate's existing interview without an immediate replacement and keep the candidate in active scheduling, so it continues working to find a new time.
+- **Reminders stop for canceled interviews.** Interview reminder and confirmation follow-ups now stop automatically when the related interview is canceled.
+- **Stronger separation between organizations.** Every application is now tied to your organization, adding another safeguard that keeps each customer's data fully separate.
+
+### Bug fixes
+
+- **No-shows now show as "Interview Disrupted" in your ATS.** Fixed a case where a no-show didn't roll up to the correct "Interview Disrupted" status in Lumary/Salesforce. See [Salesforce integration](/integrations/salesforce).
+- **More reliable ATS status updates.** Status changes now write back to Salesforce/Lumary reliably again, and two updates for the same candidate at the same time no longer overwrite each other.
+- **No more duplicate interview invites.** The agent no longer sends duplicate calendar invites for the same interview.
+- **No more duplicate documents.** Re-uploading or re-processing the same document no longer creates a duplicate record.
+- **Saving one setting no longer affects others.** Fixed a case where saving a screening setting could overwrite a recruiter's saved search configuration.

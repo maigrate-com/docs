@@ -1,0 +1,37 @@
+---
+title: "July 2026"
+description: "Product updates and improvements to Maigrate AI Hub."
+---
+
+## New features
+
+- **Calendly bookings are canceled and rescheduled through Calendly.** When a booking was made through a Calendly link, Maigrate now cancels and reschedules it through Calendly's own API rather than editing the calendar event directly. The two systems stop disagreeing about the state of an interview. See [Calendly setup](/integrations/calendly).
+- **Meeting links are resolved at send time.** Every message that carries a meeting link now looks the link up when the message goes out, so a candidate can no longer receive a link that changed after the invite was written. See [Scheduling](/recruiter/scheduling).
+- **Document review is driven by your own document definitions.** You now define which documents your organization accepts, what each one has to prove, and which of them a given role requires — separately from one another. A document can be valid on its own without satisfying a requirement, which is how expiring credentials and role-specific paperwork actually behave. See [Document review](/settings/document-review).
+- **The screening agent can assign a recruiter.** When screening advances a candidate, it can now pick the recruiter to hand them to instead of leaving the assignment for a person. See [Screening](/recruiter/screening).
+- **Rejection emails send in every location.** Rejection notices were only going out for one state's postings; they now send everywhere the setting is enabled. See [Communication settings](/settings/communication).
+
+## Updates
+
+- **Blocking escalations can't be pushed out of view.** Command Center's queue limits could hide an escalation that was blocking the agent. Blocking escalations now always appear. See [Command Center](/recruiter/command-center).
+- **The agent stops asking about things screening already settled.** Screening's findings are now available to the agent everywhere else it talks to a candidate, so a candidate is not asked twice for something they already provided. See [Screening](/recruiter/screening).
+- **Clear escalations in bulk.** A button in Command Center clears resolved escalations without going through them one at a time. See [Command Center](/recruiter/command-center).
+- **Private calendar events stay private.** The recruiter calendar page shows a busy block for events marked private instead of their details. See [Recruiter settings](/settings/recruiters).
+- **No same-day morning confirmation for a same-day booking.** If a candidate books an interview on the day it happens, the morning confirmation is skipped.
+- **Twilio's inbound webhook configures itself.** Connecting Twilio now sets the inbound SMS webhook URL for you. See [Twilio integration](/integrations/twilio).
+- **The applicant list is paginated and loads faster.** See [Applicants](/recruiter/applicants).
+- **"Interested - Not Scheduled" is retired.** The status never meant anything distinct from the statuses either side of it.
+- **Salesforce records an end date for inactive contacts.** A contact moved to an inactive onboarding step now gets its end date set at the same time. See [Salesforce integration](/integrations/salesforce).
+
+## Bug fixes
+
+- **A stalled follow-up loop left candidates uncontacted.** Fixed a case where the follow-up cadence retried hourly without sending anything and without giving up, so a candidate could sit in active outreach and never be contacted. See [Follow-up policy](/recruiter/follow-up-policy).
+- **No-show applications no longer retry forever.** Outreach after a no-show did not count against the follow-up limit, so it repeated indefinitely.
+- **Notes to the agent are no longer logged as texts to the candidate.** Guidance a recruiter typed for the agent could appear in the candidate's history as a delivered SMS. See [Communication](/recruiter/communication).
+- **Calendly self-bookings write their status back to your ATS.** An interview a candidate booked through a Calendly link never updated the Salesforce record. See [Salesforce integration](/integrations/salesforce).
+- **One unreadable calendar no longer blocks scheduling.** If a recruiter's calendar could not be read, the agent stopped looking for times entirely. It now skips that recruiter and carries on.
+- **Resumes submitted as images are screened.** A photographed or scanned resume was sent to the screener in a form it could not read. See [Screening](/recruiter/screening).
+- **Screening reads the job posting.** Some applications were screened without the posting the candidate applied to, so role-specific requirements were not applied. See [Screening](/recruiter/screening).
+- **Meeting invitation subject lines use the right time zone.** See [Scheduling](/recruiter/scheduling).
+- **The agent stops asking about documents you already have.** A clarification request could go out for a requirement that had already been satisfied. See [Document review](/settings/document-review).
+- **Escalations open the standard detail view.** See [Escalations](/recruiter/escalations).
